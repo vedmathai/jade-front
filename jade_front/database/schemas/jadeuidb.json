@@ -1,0 +1,17 @@
+{
+    "name": "JadeUIDB",
+    "tables": [
+        {
+            "name": "jade_requests",
+            "columns": [
+                {
+                    "name": "jade_request_id",
+                    "type": "VARCHAR (70)"
+                }
+            ],
+            "primary_keys":[
+                "jade_request_id"
+            ]
+        }
+    ]
+}
