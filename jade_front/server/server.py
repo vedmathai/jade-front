@@ -48,3 +48,9 @@ class Server:
     def get_jobs(self):
         jobs = self._jobs_lister.list_jobs()
         return jobs
+
+    def upload_code(self, code_zip):
+        self._code_processor.upload_code(code_zip)
+
+    def create_request(self, jade_request):
+        self._code_runner.run_code(jade_request)

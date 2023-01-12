@@ -1,11 +1,8 @@
 
-import os
-from tempfile import TemporaryDirectory
-
 from jade_front.jade_api.apis.abstract_api import AbstractAPI
 
 
-class UnzipAPI(AbstractAPI):
+class UnzipFileAPI(AbstractAPI):
     def __init__(self):
         super().__init__()
 
