@@ -71,10 +71,6 @@ class Database:
 
     def read_jade_request(self, jade_request_id):
         connection = self.connect()
-        self.use_database_query.run_query(
-            connection,
-            self.database_schema.name()
-        )
         request = None
         query = ReadQuery()
         table = "jade_requests"
@@ -92,10 +88,6 @@ class Database:
 
     def read_jade_requests(self):
         connection = self.connect()
-        self.use_database_query.run_query(
-            connection,
-            self.database_schema.name()
-        )
         query = ReadQuery()
         table = "jade_requests"
         key_dictionary = {}
@@ -109,5 +101,13 @@ class Database:
         self.close(connection)
         return requests
 
-    def delete_request(self):
-        pass
+    def delete_jade_request(self, jade_request_id):
+        connection = self.connect()
+        query = DeleteQuery()
+        table = "jade_requests"
+        key_dictionary = {
+            "jade_request_id": jade_request_id,
+        }
+        query.run_query(connection, table, key_dictionary)
+        self.close(connection)
+        return

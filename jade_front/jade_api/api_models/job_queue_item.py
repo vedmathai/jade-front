@@ -82,3 +82,16 @@ class JobQueueItem:
             'nodes': self.nodes(),
             'nodelist_reason': self.nodelist_reason(),
         }
+
+    @staticmethod
+    def from_dict(val):
+        job_queue_item = JobQueueItem()
+        job_queue_item.set_job_id(val['job_id'])
+        job_queue_item.set_partition(val['parition'])
+        job_queue_item.set_name(val['name'])
+        job_queue_item.set_user(val['user'])
+        job_queue_item.set_status(val['status'])
+        job_queue_item.set_time(val['time'])
+        job_queue_item.set_nodes(val['nodes'])
+        job_queue_item.set_nodelist_reason(val['nodelist_reason'])
+        return job_queue_item
