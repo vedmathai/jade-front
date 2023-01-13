@@ -3,6 +3,7 @@ from jade_front.datamodel.jade_request.jade_request import JadeRequest
 import pytest
 import requests
 import json
+import uuid
 
 
 URL = "http://localhost:5000"
@@ -13,7 +14,7 @@ code_location = 'jade_front/functional_tests/test_code.zip'
 
 @pytest.mark.skip(reason="Functional Test")
 def upload_run_test():
-    upload_code()
+    #upload_code()
     start_processing()
 
 def upload_code():
@@ -29,13 +30,14 @@ def start_processing():
 
 def create_request():
     request = JadeRequest()
+    request.set_id(str(uuid.uuid4()))
     request.set_nodes('1')
     request.set_wallclock_time('10:00:00')
     request.set_name('job123')
     request.set_number_gpus('1')
     request.set_mail_type('ALL')
     request.set_mail_user('john.brown@gmail.com')
-    request.set_parition('devel')
+    request.set_parition('small')
     return request
 
 

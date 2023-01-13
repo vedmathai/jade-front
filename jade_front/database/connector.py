@@ -1,4 +1,5 @@
 import mysql.connector
+import sqlite3
 
 
 class MySQLConnector:
@@ -27,4 +28,24 @@ class MySQLConnector:
             user=self.user,
             password=self.password,
         )
+        return mydb
+
+class SQLiteConnector:
+    _instance = None
+
+    @staticmethod
+    def instantiate(config, keyring):
+        if SQLiteConnector._instance is None:
+            SQLiteConnector._instance = SQLiteConnector()
+            SQLiteConnector._instance.load(config, keyring)
+
+    @staticmethod
+    def instance():
+        return SQLiteConnector._instance
+
+    def load(self, config, keyring):
+        self._database = config.database_name()
+
+    def connect(self):
+        mydb = sqlite3.connect(self._database)
         return mydb

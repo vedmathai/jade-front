@@ -3,7 +3,7 @@ import json
 from jade_front.common.keyring import Keyring
 from jade_front.common.config import Config
 
-from jade_front.database.connector import MySQLConnector
+from jade_front.database.connector import SQLiteConnector
 from jade_front.database.queries.insert_row import InsertQuery
 from jade_front.database.queries.insert_row import InsertQuery
 from jade_front.database.queries.delete_row import DeleteQuery
@@ -11,6 +11,8 @@ from jade_front.database.queries.read_row import ReadQuery
 from jade_front.database.queries.use_database import UseDatabaseQuery
 from jade_front.database.setup import SetupDatabase
 from jade_front.datamodel.jade_request.jade_request import JadeRequest
+from jade_front.database.schema_model.database import\
+     Database as DatabaseSchemaModel
 
 
 class Database:
@@ -18,23 +20,28 @@ class Database:
     _instance = None
 
     @classmethod
-    def get_instance(cls):
+    def instantiate(cls):
         if cls._instance is None:
             cls._instance = Database()
             cls._instance.setup()
+
+    @classmethod
+    def instance(cls):
+        if cls._instance is None:
+            raise Exception('{} not instantiated.'.format(cls._name))
         return cls._instance
 
     def setup(self):
         config = Config.instance()
         keyring = Keyring.instance()
-        MySQLConnector.instantiate(config, keyring)
+        SQLiteConnector.instantiate(config, keyring)
         self.database_schema = self.get_schema()
         setup_database = SetupDatabase()
         setup_database.setup(config, keyring)
         self.use_database_query = UseDatabaseQuery()
 
     def connect(self):
-        connector = MySQLConnector.instance()
+        connector = SQLiteConnector.instance()
         connection = connector.connect()
         return connection
 
@@ -51,10 +58,6 @@ class Database:
 
     def write_jade_request(self, jade_request):
         connection = self.connect()
-        self.use_database_query.run_query(
-            connection,
-            self.database_schema.name()
-        )
         table = "jade_requests"
         query = InsertQuery()
         key_dictionary = {

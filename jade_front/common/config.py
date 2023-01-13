@@ -13,6 +13,8 @@ class Config:
         self._private_key_file = None
         self._jade_hostname = None
         self._jade_username = None
+        self._database_name = None
+        self._database_schema_file = None
 
     @staticmethod
     def instantiate(tier) -> None:
@@ -39,6 +41,12 @@ class Config:
     def jade_username(self) -> str:
         return self._jade_username
 
+    def database_name(self) -> str:
+        return self._database_name
+
+    def database_schema_file(self) -> str:
+        return self._database_schema_file
+
     def set_keyring_file(self, keyring_file) -> str:
         self._keyring_file = keyring_file
 
@@ -51,6 +59,11 @@ class Config:
     def set_jade_username(self, jade_username) -> None:
         self._jade_username = jade_username
 
+    def set_database_name(self, database_name) -> None:
+        self._database_name = database_name
+
+    def set_database_schema_file(self, database_schema_file) -> str:
+        self._database_schema_file = database_schema_file
 
     @staticmethod
     def from_dict(val):
@@ -59,6 +72,8 @@ class Config:
         config.set_private_key_file(val.get('private_key_file'))
         config.set_jade_hostname(val.get('jade_hostname'))
         config.set_jade_username(val.get('jade_username'))
+        config.set_database_name(val.get('database_name'))
+        config.set_database_schema_file(val.get('database_schema_file'))
         return config
 
     def to_dict(self):
@@ -67,4 +82,6 @@ class Config:
             'private_key_file': self.private_key_file(),
             'jade_hostname': self.jade_hostname(),
             'jade_username': self.jade_username(),
+            'database_name': self.database_name(),
+            'database_schema_file': self.database_schema_file(),
         }

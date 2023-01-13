@@ -6,7 +6,7 @@ from jade_front.database.queries.abstract import AbstractQuery
 
 
 class InsertQuery(AbstractQuery):
-    _query_template = 'INSERT INTO {} ({}) VALUES ({}) ON DUPLICATE KEY UPDATE {};'  # noqa
+    _query_template = 'INSERT OR REPLACE INTO {} ({}) VALUES ({});'  # noqa
 
     def run_query(self, connection, table_name, key_dictionary,
                   value_dictionary):

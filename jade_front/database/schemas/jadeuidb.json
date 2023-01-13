@@ -7,6 +7,10 @@
                 {
                     "name": "jade_request_id",
                     "type": "VARCHAR (70)"
+                },
+                {
+                    "name": "jade_request",
+                    "type": "JSON NOT NULL"
                 }
             ],
             "primary_keys":[

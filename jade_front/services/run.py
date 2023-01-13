@@ -23,6 +23,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     Config.instantiate(args.Tier)
+    Keyring.instantiate(args.Tier)
     Server.instantiate(jade_front_app)
 
     # registering the blueprints

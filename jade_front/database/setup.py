@@ -1,7 +1,7 @@
 import json
 
 from jade_front.common.config import Config
-from jade_front.database.connector import MySQLConnector
+from jade_front.database.connector import SQLiteConnector
 from jade_front.database.queries.add_columns import AddColumnsQuery
 from jade_front.database.queries.create_databases import \
     CreateDatabasesQuery
@@ -19,10 +19,10 @@ from jade_front.database.schema_model.database import Database
 class SetupDatabase():
     def setup(self, config, keyring):
         self.database_schema = self.get_schema(config, keyring)
-        connector = MySQLConnector.instance()
+        connector = SQLiteConnector.instance()
         connection = connector.connect()
-        self.create_database(connection)
-        self.use_database(connection)
+        #self.create_database(connection)
+        #self.use_database(connection)
         self.create_tables(connection)
         self.create_columns(connection)
         self.create_foreign_keys(connection)
