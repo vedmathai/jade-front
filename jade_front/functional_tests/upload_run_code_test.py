@@ -18,6 +18,7 @@ code_location = 'jade_front/functional_tests/test_code.zip'
 def upload_run_test():
     upload_code()
     start_processing()
+    get_jade_logs()
     get_requests()
     get_request()
     cancel_request()
@@ -61,6 +62,15 @@ def get_request():
     response = requests.get(url)
     jade_request = JadeRequest.from_dict(response.json())
     assert jade_request.to_dict() == first.to_dict()
+
+def get_jade_logs():
+    jade_requests_url = os.path.join(URL, version, 'jade_requests')
+    response = requests.get(jade_requests_url)
+    jade_requests = [JadeRequest.from_dict(i) for i in response.json()]
+    first = jade_requests[0]
+    logs_url = os.path.join(URL, version, 'jade_requests', first.id(), 'logs')
+    logs = requests.get(logs_url).json()
+    assert 'message' in logs
 
 def delete_request():
     jade_requests_url = os.path.join(URL, version, 'jade_requests')

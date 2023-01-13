@@ -7,6 +7,6 @@ class UnzipFileAPI(AbstractAPI):
         super().__init__()
 
     def run_api(self, file_path):
-        command = 'unzip {}'.format(file_path)
+        command = 'unzip -o {}'.format(file_path)
         outputs = super().run_api(command)
         return outputs[0]
