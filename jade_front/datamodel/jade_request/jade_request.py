@@ -1,5 +1,6 @@
 class JadeRequest:
     def __init__(self):
+        self._id = None
         self._nodes = None
         self._wallclock_time = None
         self._name = None
@@ -7,6 +8,10 @@ class JadeRequest:
         self._mail_type = None
         self._mail_user = None
         self._partition = None
+        self._job_id = None
+
+    def id(self):
+        return self._id
 
     def nodes(self):
         return self._nodes
@@ -29,6 +34,12 @@ class JadeRequest:
     def partition(self):
         return self._partition
 
+    def job_id(self):
+        return self._job_id
+
+    def set_id(self, id):
+        self._id = id
+
     def set_nodes(self, nodes):
         self._nodes = nodes
 
@@ -50,8 +61,12 @@ class JadeRequest:
     def set_parition(self, partition):
         self._partition = partition
 
+    def set_job_id(self, job_id):
+        self._job_id = job_id
+
     def to_dict(self):
         return {
+            'id': self.id(),
             'nodes': self.nodes(),
             'wallclock_time': self.wallclock_time(),
             'name': self.name(),
@@ -59,11 +74,13 @@ class JadeRequest:
             'mail_type': self.mail_type(),
             'mail_user': self.mail_user(),
             'partition': self.partition(),
+            'job_id': self.job_id(),
         }
 
     @staticmethod
     def from_dict(jade_request_dict):
         jade_request = JadeRequest()
+        jade_request.set_id(jade_request_dict['id'])
         jade_request.set_nodes(jade_request_dict['nodes'])
         jade_request.set_wallclock_time(jade_request_dict['wallclock_time'])
         jade_request.set_name(jade_request_dict['name'])
@@ -71,4 +88,5 @@ class JadeRequest:
         jade_request.set_mail_type(jade_request_dict['mail_type'])
         jade_request.set_mail_user(jade_request_dict['mail_user'])
         jade_request.set_parition(jade_request_dict['partition'])
+        jade_request.set_job_id(jade_request_dict['job_id'])
         return jade_request

@@ -5,7 +5,7 @@ class AbstractQuery:
         response = []
         cursor = connection.cursor()
         cursor.execute(self._query)
-        for i in cursor:
+        for i in cursor.fetchall():
             response.append(i)
         cursor.close()
         return response
@@ -15,7 +15,7 @@ class AbstractQuery:
         cursor = connection.cursor()
         for query in self._queries:
             cursor.execute(query)
-            for i in cursor:
+            for i in cursor.fetchall():
                 response.append(i)
         cursor.close()
         return response

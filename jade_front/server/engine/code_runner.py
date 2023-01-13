@@ -6,6 +6,7 @@ from jade_front.server.engine.abstract_processor import AbstractProcessor
 from jade_front.jade_api.apis.upload_file_api import UploadFileAPI
 from jade_front.jade_api.apis.unzip_api import UnzipFileAPI
 from jade_front.jade_api.apis.submit_job_api import SubmitJobAPI
+from jade_front.database.database import Database
 
 
 
@@ -15,7 +16,8 @@ class CodeRunner(AbstractProcessor):
 
     def run_code(self, jade_request):
         self.write_script_remote(jade_request)
-        self.submit_job()
+        job_id = self.submit_job()
+        self.save_jade_request(job_id, jade_request)
 
     def create_script(self, jade_request):
         script = '#!/bin/bash\n'
@@ -41,4 +43,9 @@ class CodeRunner(AbstractProcessor):
     def submit_job(self):
         submit_job_api = SubmitJobAPI()
         job_id = submit_job_api.run_api()
-        print(job_id)
+        return job_id
+
+    def save_jade_request(self, job_id, jade_request):
+        database = Database.instance()
+        jade_request.set_job_id(job_id)
+        database.write_jade_request(jade_request)

@@ -1,3 +1,4 @@
+from jade_front.database.database import Database
 from jade_front.server.engine.code_preprocessor import CodePreprocessor
 from jade_front.server.engine.code_runner import CodeRunner
 from jade_front.server.engine.logs_retriever import LogsRetriever
@@ -22,6 +23,7 @@ class Server:
             Pollster.instantiate()
             ResultsRetriever.instantiate()
             JobsLister.instantiate()
+            Database.instantiate()
             cls._instance = Server()
             cls._instance.setup()
 
@@ -38,12 +40,14 @@ class Server:
         self._pollster = Pollster.instance()
         self._results_retriever = ResultsRetriever.instance()
         self._jobs_lister = JobsLister.instance()
+        self._database = Database.instance()
         self._code_processor.setup()
         self._code_runner.setup()
         self._logs_retriever.setup()
         self._pollster.setup()
         self._results_retriever.setup()
         self._jobs_lister.setup()
+        self._database.setup()
 
     def get_jobs(self):
         jobs = self._jobs_lister.list_jobs()

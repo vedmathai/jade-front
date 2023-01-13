@@ -10,7 +10,7 @@ class Keyring:
         pass
 
     @staticmethod
-    def instantiate() -> None:
+    def instantiate(tier) -> None:
         config = Config.instance()
         keyring_file = config.keyring_file()
         with open(keyring_file, 'rt') as f:
