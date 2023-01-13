@@ -97,3 +97,18 @@ class Server:
     
     def get_jade_logs(self, jade_request_id):
         return self._logs_retriever.retrieve_logs(jade_request_id)
+
+    def create_jade_project(self, jade_project):
+        self._database.write_jade_project(jade_project)
+
+    def update_jade_project(self, jade_project):
+        self._database.write_jade_project(jade_project)
+
+    def get_jade_projects_list(self):
+        return self._database.read_jade_projects()
+
+    def get_jade_project(self, jade_project_id):
+        return self._database.read_jade_project(jade_project_id)
+
+    def delete_jade_project(self, jade_project_id):
+        return self._database.delete_jade_project(jade_project_id)
