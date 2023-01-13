@@ -5,6 +5,7 @@ from jade_front.server.engine.logs_retriever import LogsRetriever
 from jade_front.server.engine.pollster import Pollster
 from jade_front.server.engine.results_retriever import ResultsRetriever
 from jade_front.server.engine.jobs_lister import JobsLister
+from jade_front.server.engine.job_canceller import JobCanceller
 
 
 class Server:
@@ -23,6 +24,7 @@ class Server:
             Pollster.instantiate()
             ResultsRetriever.instantiate()
             JobsLister.instantiate()
+            JobCanceller.instantiate()
             Database.instantiate()
             cls._instance = Server()
             cls._instance.setup()
@@ -40,6 +42,7 @@ class Server:
         self._pollster = Pollster.instance()
         self._results_retriever = ResultsRetriever.instance()
         self._jobs_lister = JobsLister.instance()
+        self._job_canceller = JobCanceller.instance()
         self._database = Database.instance()
         self._code_processor.setup()
         self._code_runner.setup()
@@ -47,6 +50,8 @@ class Server:
         self._pollster.setup()
         self._results_retriever.setup()
         self._jobs_lister.setup()
+        self._jobs_lister.setup()
+        self._job_canceller.setup()
         self._database.setup()
 
     def get_jobs(self):
@@ -58,3 +63,15 @@ class Server:
 
     def create_request(self, jade_request):
         self._code_runner.run_code(jade_request)
+
+    def get_jade_requests_list(self):
+        return self._database.read_jade_requests()
+
+    def get_jade_request(self, jade_request_id):
+        return self._database.read_jade_request(jade_request_id)
+
+    def delete_jade_request(self, jade_request_id):
+        return self._database.delete_jade_request(jade_request_id)
+
+    def cancel_job(self, jade_request_id):
+        return self._job_canceller.cancel_job(jade_request_id)

@@ -10,19 +10,18 @@ requests_blueprint = Blueprint('jade_requests', __name__)
 @requests_blueprint.route('/jade_requests', methods=['GET'])
 def get_requests_list():
     server = Server.instance()
-    req_data = request.get_json(force=True)
-    server.create_organization(req_data)
+    jade_requests_list = server.get_jade_requests_list()
     return Response(
-        {'msg': 'Request Created Successfully'},
+        json.dumps([i.to_dict() for i in jade_requests_list]),
         HTTPStatus.OK
     )
 
-@requests_blueprint.route('/jade_requests/<run_id>', methods=['GET'])
-def get_request(run_id):
+@requests_blueprint.route('/jade_requests/<jade_request_id>', methods=['GET'])
+def get_request(jade_request_id):
     server = Server.instance()
-    request = server.get_request(run_id)
+    jade_request = server.get_jade_request(jade_request_id)
     return Response(
-        {'msg': 'Request Created Successfully'},
+        json.dumps(jade_request.to_dict()),
         HTTPStatus.OK
     )
 
@@ -34,5 +33,23 @@ def create_request():
     server.create_request(jade_request)
     return Response(
         {'msg': 'Request Created Successfully'},
+        HTTPStatus.OK
+    )
+
+@requests_blueprint.route('/jade_requests/<jade_request_id>', methods=['DELETE'])
+def delete_request(jade_request_id):
+    server = Server.instance()
+    server.delete_jade_request(jade_request_id)
+    return Response(
+        {'msg': 'Jade Request Deleted Successfully'},
+        HTTPStatus.OK
+    )
+
+@requests_blueprint.route('/jade_requests/<jade_request_id>/cancel', methods=['POST'])
+def cancel_jade_request(jade_request_id):
+    server = Server.instance()
+    server.cancel_job(jade_request_id)
+    return Response(
+        {'msg': 'Jade Request Cancelled Successfully'},
         HTTPStatus.OK
     )
