@@ -68,7 +68,7 @@ class JobQueueItem:
         job_queue_item.set_status(item[4])
         job_queue_item.set_time(item[5])
         job_queue_item.set_nodes(item[6])
-        job_queue_item.set_nodelist_reason(item[6])
+        job_queue_item.set_nodelist_reason(item[7])
         return job_queue_item
 
     def to_dict(self):

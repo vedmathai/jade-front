@@ -19,6 +19,7 @@ class JobQueue:
         for row in rows:
             if len(row) > 0:
                 job_queue._job_queue.append(JobQueueItem.from_ssh_response(row))
+        job_queue._job_queue.pop(0)
         return job_queue
 
     @staticmethod
