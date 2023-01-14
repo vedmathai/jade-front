@@ -4,6 +4,7 @@
 """
 import argparse
 from flask import Flask
+from flask_cors import CORS
 from os import environ
 
 from jade_front.common.config import Config
@@ -19,6 +20,7 @@ from jade_front.server.server import Server
 
 if __name__ == '__main__':
     jade_front_app = Flask(__name__)
+    CORS(jade_front_app)
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-t", "--Tier", help="The set of configs to use.")

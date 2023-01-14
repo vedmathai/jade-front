@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import JadeJobsQueue from './pages/jobs-queue/jobs-queue';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <Routes>
-      <Route path="/app" element={<App />} />
+      <Route path="/jade-jobs-queue" element={<JadeJobsQueue />} />
+
     </Routes>
 </Router>
 );
