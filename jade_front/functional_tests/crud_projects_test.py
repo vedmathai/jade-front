@@ -24,17 +24,10 @@ def crud_projects_test():
 
 def create_project():
     # Create project
-<<<<<<< HEAD
     url = os.path.join(URL, version, 'jade_projects','new')
     project_dict = requests.get(url).json()
     project = JadeProject.from_dict(project_dict)
     project.set_name('test')
-=======
-    project = JadeProject()
-    project.set_name('test')
-    id = str(uuid.uuid4())
-    project.set_id(id)
->>>>>>> ca8ba0c2 (CRUD for projects)
     url = os.path.join(URL, version, 'jade_projects')
     requests.post(url, json=project.to_dict())
 
