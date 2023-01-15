@@ -16,7 +16,7 @@ code_location = 'jade_front/functional_tests/test_code.zip'
 
 @pytest.mark.skip(reason="Functional Test")
 def upload_run_test():
-    #upload_code()
+    upload_code()
     start_processing()
     get_requests()
     get_request()
