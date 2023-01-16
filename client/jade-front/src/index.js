@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import JadeJobsQueue from './pages/jobs-queue/jobs-queue';
 import JadeRequestsList from './pages/jade-requests/jade-requests';
+import JadeProjectsList from './pages/jade-projects/jade-projects';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,6 +14,7 @@ root.render(
     <Routes>
       <Route path="/jade-jobs-queue" element={<JadeJobsQueue />} />
       <Route path="/jade-requests" element={<JadeRequestsList />} />
+      <Route path="/jade-projects" element={<JadeProjectsList />} />
 
     </Routes>
 </Router>
