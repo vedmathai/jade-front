@@ -1,7 +1,6 @@
 from flask import Blueprint, Response, request
 from http import HTTPStatus
 import json
-<<<<<<< HEAD
 from flask_cors import cross_origin
 
 from jade_front.server.server import Server
