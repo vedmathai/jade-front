@@ -1,3 +1,6 @@
+import uuid
+
+
 class JadeProject:
     def __init__(self):
         self._id = None
@@ -35,4 +38,10 @@ class JadeProject:
         jade_project.set_id(jade_project_dict['id'])
         jade_project.set_name(jade_project_dict['name'])
         jade_project.set_jade_requests(jade_project_dict['jade_requests'])
+        return jade_project
+
+    @staticmethod
+    def create():
+        jade_project = JadeProject()
+        jade_project.set_id(str(uuid.uuid4()))
         return jade_project

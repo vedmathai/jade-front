@@ -6,6 +6,7 @@ from jade_front.server.engine.pollster import Pollster
 from jade_front.server.engine.results_retriever import ResultsRetriever
 from jade_front.server.engine.jobs_lister import JobsLister
 from jade_front.server.engine.job_canceller import JobCanceller
+from jade_front.datamodel.jade_project.jade_project import JadeProject
 
 
 class Server:
@@ -84,6 +85,9 @@ class Server:
 
     def get_jade_projects_list(self):
         return self._database.read_jade_projects()
+
+    def get_new_jade_project(self):
+        return JadeProject.create()
 
     def get_jade_project(self, jade_project_id):
         return self._database.read_jade_project(jade_project_id)
