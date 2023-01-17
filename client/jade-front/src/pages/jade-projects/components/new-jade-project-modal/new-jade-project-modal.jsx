@@ -17,14 +17,16 @@ export default function NewJadeProjectModal(props) {
 
     const postJadeProjectFn = async () => {
         await postJadeProjectAPI(jadeProject);
+        onClickCancelNewJadeProjectModalButton();
     }
 
-    useEffect(async () => {
-        await getNewJadeProjectFn();
+    useEffect(() => {
+        getNewJadeProjectFn();
     }, []);
 
     const onClickSubmitNewJadeProjectFormButton = async () => {
         await postJadeProjectFn();
+        await props.refreshJadeProjectsTableFn();
     }
 
     const onClickCancelNewJadeProjectModalButton = () => {

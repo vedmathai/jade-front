@@ -25,6 +25,7 @@ def get_projects_list():
 @projects_blueprint.route('/jade-projects/<jade_project_id>', methods=['GET'])
 def get_project(jade_project_id):
     server = Server.instance()
+    print(jade_project_id)
     jade_project = server.get_jade_project(jade_project_id)
     return Response(
         json.dumps(jade_project.to_dict()),
