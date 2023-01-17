@@ -106,7 +106,7 @@ export default function JadeRequestsTable(props) {
             }
             return false;
         })
-        current_page = Math.ceil(pageStarti + 1 / page_size)
+        current_page = Math.ceil((pageStarti + 1) / page_size)
         total_pages = Math.ceil(page_rows.length / page_size)
         var rows = page_rows.slice(pageStarti, pageStarti + page_size);
         console.log(rows);

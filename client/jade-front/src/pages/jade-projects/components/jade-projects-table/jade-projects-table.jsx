@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 import './jade-projects-table.css'
 
 function JadeProjectsTableCell(props){
@@ -16,6 +17,7 @@ function JadeProjectsTableRow(props){
     const row = props.row;
     const rowi = props.rowi;
     const keys = ['name']
+    const navigate = useNavigate();
     const vals = keys.map((key) => {
         return row[key]
     })
@@ -23,8 +25,13 @@ function JadeProjectsTableRow(props){
     const row_div = row_vals.map((row_val, row_val_i) => (
         <JadeProjectsTableCell item={row_val}/>
     ))
+
+    const onClickJadeProjectsTableRow = (id) => {
+        navigate("/jade-project?jade-project-id=" +id)
+    }
+    
     return (
-        <tr>
+        <tr onClick={() => onClickJadeProjectsTableRow(row['id'])}>
             {row_div}
         </tr>
     )
@@ -74,7 +81,6 @@ export default function JadeProjectsTable(props) {
     var total_pages = 0
 
     var projects_list = props.jadeProjectsList;
-    var rows_display = [];
     const page_size = 10;
 
     var onClickNextPageButton = () => {
@@ -108,7 +114,7 @@ export default function JadeProjectsTable(props) {
             }
             return false;
         })
-        current_page = Math.ceil(pageStarti + 1 / page_size)
+        current_page = Math.ceil((pageStarti + 1) / page_size)
         total_pages = Math.ceil(page_rows.length / page_size)
         var rows = page_rows.slice(pageStarti, pageStarti + page_size);
         rows = rows.map((row, rowi) => (

@@ -15,16 +15,21 @@ export default function JadeProjectsList() {
         setJadeProjectsList(jadeProjectsList);
     }
     
-    useEffect(async () => {
-        await getJadeProjectsFn();
+    useEffect(() => {
+        getJadeProjectsFn();
     }, []);
 
     const onClickNewJadeProjectButton = () => {
         setShowNewJadeProjectModal(true);
     }
 
-    const onClickCancelNewJadeProjectModalButton = () => {
+    const onClickCancelNewJadeProjectModalButton = async () => {
         setShowNewJadeProjectModal(false);
+        await getJadeProjectsFn();
+    }
+
+    const refreshJadeProjectsTableFn = async () => {
+        await getJadeProjectsFn();
     }
 
     const new_jade_project_button = <button
@@ -39,6 +44,7 @@ export default function JadeProjectsList() {
                 <NewJadeProjectModal 
                     showNewJadeProjectModal={showNewJadeProjectModal}
                     onClickCancelNewJadeProjectModalButton={onClickCancelNewJadeProjectModalButton}
+                    refreshJadeProjectsTableFn={refreshJadeProjectsTableFn}
                 />
                 <div>
                     <h2 class="page-heading">Jade Projects</h2>

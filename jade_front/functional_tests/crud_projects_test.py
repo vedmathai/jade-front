@@ -1,7 +1,6 @@
 import os
 import pytest
 import requests
-import json
 import uuid
 
 from jade_front.jade_api.api_models.job_queue import JobQueue
@@ -24,7 +23,7 @@ def crud_projects_test():
 
 def create_project():
     # Create project
-    url = os.path.join(URL, version, 'jade_projects','new')
+    url = os.path.join(URL, version, 'jade-projects','new')
     project_dict = requests.get(url).json()
     project = JadeProject.from_dict(project_dict)
     project.set_name('test')
@@ -32,14 +31,14 @@ def create_project():
     requests.post(url, json=project.to_dict())
 
     # Check project list greater than 1
-    url = os.path.join(URL, version, 'jade_projects')
+    url = os.path.join(URL, version, 'jade-projects')
     response = requests.get(url)
     projects = JadeProjectList.from_dict(response.json())
     assert len(projects.jade_project_list()) > 1
 
     # Retrieve project by ID
     first = projects.jade_project_list()[0]
-    url = os.path.join(URL, version, 'jade_projects', first.id())
+    url = os.path.join(URL, version, 'jade-projects', first.id())
     response = requests.get(url)
     project = JadeProject.from_dict(response.json())
     assert projects.jade_project_list()[0].to_dict() == project.to_dict()
@@ -47,7 +46,7 @@ def create_project():
 
 def update_project(project):
     project.set_name('test_test')
-    url = os.path.join(URL, version, 'jade_projects', project.id())
+    url = os.path.join(URL, version, 'jade-projects', project.id())
     new_project = JadeProject.from_dict(project.to_dict())
     new_project.set_id(str(uuid.uuid4()))  # Check if change of ID is ignored on server
     requests.put(url, json=new_project.to_dict())
@@ -58,17 +57,17 @@ def update_project(project):
 
 def delete_project(project):
     # Check project is in list of projects
-    url = os.path.join(URL, version, 'jade_projects')
+    url = os.path.join(URL, version, 'jade-projects')
     response = requests.get(url)
     projects = JadeProjectList.from_dict(response.json())
     assert project.id() in [i.id() for i in projects.jade_project_list()]
 
     # Delete Project
-    url = os.path.join(URL, version, 'jade_projects', project.id())
+    url = os.path.join(URL, version, 'jade-projects', project.id())
     requests.delete(url)
 
     # Check that the project is now not there in the list of projects
-    url = os.path.join(URL, version, 'jade_projects')
+    url = os.path.join(URL, version, 'jade-projects')
     response = requests.get(url)
     projects = JadeProjectList.from_dict(response.json())
     assert project.id() not in [i.id() for i in projects.jade_project_list()]
