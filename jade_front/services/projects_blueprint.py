@@ -5,6 +5,9 @@ from flask_cors import cross_origin
 
 from jade_front.server.server import Server
 from jade_front.datamodel.jade_project.jade_project import JadeProject
+from jade_front.services.utils import encode_decode_zip
+
+
 HEADERS = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
@@ -74,3 +77,18 @@ def new_project():
         json.dumps(jade_project.to_dict()),
         HTTPStatus.OK
     )
+
+@projects_blueprint.route('/jade-projects/<project_id>/code', methods=['POST'])
+def upload_code(project_id):
+    server = Server.instance()
+    file_string = request.form.get('file')
+    zip_file = encode_decode_zip(file_string)
+    if file_string is not None:
+        server.upload_code(project_id, zip_file)
+        response_dict = {"message": "Bulk reports uploaded successfully"}
+        return Response(
+            json.dumps(response_dict),
+            HTTPStatus.OK,
+            mimetype='application/json',
+            headers=HEADERS,
+        )

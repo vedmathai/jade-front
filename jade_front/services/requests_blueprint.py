@@ -53,3 +53,12 @@ def cancel_jade_request(jade_request_id):
         {'msg': 'Jade Request Cancelled Successfully'},
         HTTPStatus.OK
     )
+
+@requests_blueprint.route('/jade_requests/new', methods=['GET'])
+def get_new_request():
+    server = Server.instance()
+    jade_request = server.get_new_jade_request()
+    return Response(
+        json.dumps(jade_request.to_dict()),
+        HTTPStatus.OK
+    )

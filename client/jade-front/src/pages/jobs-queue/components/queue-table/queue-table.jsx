@@ -89,6 +89,7 @@ export default function QueueTable(props) {
 
     var onChangeSearch = (value) => {
         setSearchTerm(value);
+        setPageStarti(0);
     }
 
     if (queue.job_queue) {

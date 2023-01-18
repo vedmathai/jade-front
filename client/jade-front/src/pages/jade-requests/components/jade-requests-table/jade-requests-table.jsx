@@ -92,6 +92,7 @@ export default function JadeRequestsTable(props) {
 
     var onChangeSearch = (value) => {
         setSearchTerm(value);
+        setPageStarti(0);
     }
 
     if (requests_list) {

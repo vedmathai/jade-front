@@ -7,6 +7,7 @@ from jade_front.server.engine.results_retriever import ResultsRetriever
 from jade_front.server.engine.jobs_lister import JobsLister
 from jade_front.server.engine.job_canceller import JobCanceller
 from jade_front.datamodel.jade_project.jade_project import JadeProject
+from jade_front.datamodel.jade_request.jade_request import JadeRequest
 
 
 class Server:
@@ -19,6 +20,7 @@ class Server:
     @classmethod
     def instantiate(cls, flask_app):
         if cls._instance is None:
+            Database.instantiate()
             CodePreprocessor.instantiate()
             CodeRunner.instantiate()
             LogsRetriever.instantiate()
@@ -26,7 +28,6 @@ class Server:
             ResultsRetriever.instantiate()
             JobsLister.instantiate()
             JobCanceller.instantiate()
-            Database.instantiate()
             cls._instance = Server()
             cls._instance.setup()
 
@@ -59,8 +60,9 @@ class Server:
         jobs = self._jobs_lister.list_jobs()
         return jobs
 
-    def upload_code(self, code_zip):
-        self._code_processor.upload_code(code_zip)
+    def upload_code(self, jade_project_id, code_zip):
+        project = self.get_jade_project(jade_project_id)
+        self._code_processor.upload_code(project, code_zip)
 
     def create_request(self, jade_request):
         self._code_runner.run_code(jade_request)
@@ -70,6 +72,9 @@ class Server:
 
     def get_jade_request(self, jade_request_id):
         return self._database.read_jade_request(jade_request_id)
+
+    def get_new_jade_request(self):
+        return JadeRequest.create()
 
     def delete_jade_request(self, jade_request_id):
         return self._database.delete_jade_request(jade_request_id)
