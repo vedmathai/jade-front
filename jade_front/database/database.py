@@ -20,6 +20,7 @@ from jade_front.database.schema_model.database import\
 class Database:
 
     _instance = None
+    _name = 'database'
 
     @classmethod
     def instantiate(cls):

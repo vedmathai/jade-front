@@ -4,5 +4,8 @@
     "jade_hostname": "jade2.hartree.stfc.ac.uk",
     "jade_username": "vkm07-wga30",
     "database_name": "JadeDatabase",
-    "database_schema_file": "jade_front/database/schemas/jadeuidb.json"
+    "database_schema_file": "jade_front/database/schemas/jadeuidb.json",
+    "remote_projects_folder_name": "jade_front",
+    "remote_projects_code_folder_name": "code",
+    "remote_projects_code_file_name": "code.zip"
 }

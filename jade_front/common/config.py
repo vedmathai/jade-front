@@ -47,6 +47,15 @@ class Config:
     def database_schema_file(self) -> str:
         return self._database_schema_file
 
+    def remote_projects_folder_name(self) -> str:
+        return self._remote_projects_folder_name
+
+    def remote_projects_code_folder_name(self) -> str:
+        return self._remote_projects_code_folder_name
+
+    def remote_projects_code_file_name(self) -> str:
+        return self._remote_projects_code_file_name
+
     def set_keyring_file(self, keyring_file) -> str:
         self._keyring_file = keyring_file
 
@@ -65,6 +74,15 @@ class Config:
     def set_database_schema_file(self, database_schema_file) -> str:
         self._database_schema_file = database_schema_file
 
+    def set_remote_projects_folder_name(self, remote_projects_folder_name) -> str:
+        self._remote_projects_folder_name = remote_projects_folder_name
+
+    def set_remote_projects_code_folder_name(self, remote_projects_code_folder_name) -> None:
+        self._remote_projects_code_folder_name = remote_projects_code_folder_name
+
+    def set_remote_projects_code_file_name(self, remote_projects_code_file_name) -> None:
+        self._remote_projects_code_file_name = remote_projects_code_file_name
+
     @staticmethod
     def from_dict(val):
         config = Config()
@@ -74,6 +92,9 @@ class Config:
         config.set_jade_username(val.get('jade_username'))
         config.set_database_name(val.get('database_name'))
         config.set_database_schema_file(val.get('database_schema_file'))
+        config.set_remote_projects_folder_name(val.get('remote_projects_folder_name'))
+        config.set_remote_projects_code_folder_name(val.get('remote_projects_code_folder_name'))
+        config.set_remote_projects_code_file_name(val.get('remote_projects_code_file_name'))
         return config
 
     def to_dict(self):
@@ -84,4 +105,7 @@ class Config:
             'jade_username': self.jade_username(),
             'database_name': self.database_name(),
             'database_schema_file': self.database_schema_file(),
+            'remote_projects_folder_name': self.remote_projects_folder_name(),
+            'remote_projects_code_folder_name': self.remote_projects_code_folder_name(),
+            'remote_projects_code_file_name': self.remote_projects_code_file_name(),
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import FormInput from '../../../../common/form-item/form-item';
-import getNewJadeProjectAPI from '../../../../apis/jade-projects/getNewJadeProjectAPI ';
+import getNewJadeProjectAPI from '../../../../apis/jade-projects/getNewJadeProjectAPI';
 import postJadeProjectAPI from '../../../../apis/jade-projects/postJadeProjectAPI';
 import './new-jade-project-modal.css'
 
