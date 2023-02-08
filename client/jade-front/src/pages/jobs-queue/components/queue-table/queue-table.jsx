@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './queue-table.css'
+import '../../../../common/css/table.css';
 
 function QueueTableCell(props){
     var item = props.item;
     return (
         <>
-            <td className="queue-table-cell">
+            <td className="table-cell queue-table-cell">
                 {item}
             </td>
         </>
@@ -20,7 +21,7 @@ function QueueTableRow(props){
         <QueueTableCell item={row_val}/>
     ))
     return (
-        <tr>
+        <tr className='table-row queue-table-row'>
             {row_div}
         </tr>
     )
@@ -32,7 +33,7 @@ function QueueTableHeader() {
                    'User', 'Status', 'Time', 'Nodes',
                    'Nodelist(reason)']
     headers = headers.map((header) => {
-        return <th>{header}</th>
+        return <th className='table-header'>{header}</th>
     })
     return (
         <tr>
@@ -112,7 +113,7 @@ export default function QueueTable(props) {
         ));
     }
     return (
-        <>
+        <div className="table">
             <SearchBar
                 onChangeSearch={onChangeSearch}
             />
@@ -126,6 +127,6 @@ export default function QueueTable(props) {
                 currentPage={current_page}
                 totalPages={total_pages}
             />
-        </>
+        </div>
     )
 }

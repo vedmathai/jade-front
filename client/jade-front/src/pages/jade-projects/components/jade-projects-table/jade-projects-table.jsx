@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import './jade-projects-table.css'
+import '../../../../common/css/table.css';
+
 
 function JadeProjectsTableCell(props){
     var item = props.item;
     return (
-        <>
-            <td className="jade-projects-table-cell">
-                {item}
-            </td>
-        </>
+        <td className="table-cell jade-projects-table-cell">
+            {item}
+        </td>
     )
 }
 
@@ -31,7 +31,9 @@ function JadeProjectsTableRow(props){
     }
     
     return (
-        <tr onClick={() => onClickJadeProjectsTableRow(row['id'])}>
+        <tr className="table-row jade-projects-table-row"
+            onClick={() => onClickJadeProjectsTableRow(row['id'])}
+        >
             {row_div}
         </tr>
     )
@@ -41,7 +43,7 @@ function JadeProjectsTableRow(props){
 function JadeProjectsHeader() {
     var headers = ['Sr. No.', 'Name']
     headers = headers.map((header) => {
-        return <th>{header}</th>
+        return <th className='table-header'>{header}</th>
     })
     return (
         <tr>
@@ -55,13 +57,15 @@ function PaginationFunctions(props) {
     return (
         <>
             <button
+                className="pagination-button"
                 onClick={() => props.onClickPreviousPageButton()}
-            >Previous
+            >&lt;- Previous
             </button>
             Page {props.currentPage} / {props.totalPages}
             <button
+                className="pagination-button"
                 onClick={() => props.onClickNextPageButton()}
-            >Next</button>
+            >Next -&gt;</button>
         </>
     )
 }
@@ -108,7 +112,7 @@ export default function JadeProjectsTable(props) {
             if (searchTerm.length == 0) { return true }
             let values = Object.values(row_item);
             for (let i in values) {
-                if (values[i].includes(searchTerm)) {
+                if ((values[i] !== null) && (values[i].includes(searchTerm))) {
                     return true;
                 }
             }
@@ -128,7 +132,7 @@ export default function JadeProjectsTable(props) {
             <SearchBar
                 onChangeSearch={onChangeSearch}
             />
-            <table>
+            <table className='table'>
                 <JadeProjectsHeader/>
                 {rows}
             </table>

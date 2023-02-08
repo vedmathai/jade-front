@@ -1,0 +1,24 @@
+.side-bar {
+    height: 100vh;
+    width: 200px;
+    background-color: var(--light-green);
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: var(--dark-green) 1px solid;
+    padding-top: 100px;
+}
+
+.side-bar-row {
+    height: 40px;
+    padding-top: 14px;
+    text-align: center;
+    cursor: pointer;
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    color: var(--off-white);
+}
+
+.side-bar-row:hover {
+    background-color: var(--hover-green);
+}
