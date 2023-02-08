@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import getJadeProjectsListAPI from '../../apis/jade-projects/getJadeProjectsListAPI';
+import SideBar from '../../common/side-bar/side-bar';
+import TopBar from '../../common/top-bar/top-bar';
 import JadeProjectsTable from './components/jade-projects-table/jade-projects-table';
 import NewJadeProjectModal from './components/new-jade-project-modal/new-jade-project-modal';
+import '../pages.css'
 import './jade-projects.css'
 
 
@@ -33,14 +36,17 @@ export default function JadeProjectsList() {
     }
 
     const new_jade_project_button = <button
+        className='page-button'
         onClick={() => onClickNewJadeProjectButton()}
     >
         New Project
     </button>
 
     return (
-        <>
-            <div class="page-content">
+        <div className="page">
+            <SideBar />
+            <TopBar />
+            <div className="page-content">
                 <NewJadeProjectModal 
                     showNewJadeProjectModal={showNewJadeProjectModal}
                     onClickCancelNewJadeProjectModalButton={onClickCancelNewJadeProjectModalButton}
@@ -56,6 +62,6 @@ export default function JadeProjectsList() {
                     ></JadeProjectsTable>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
