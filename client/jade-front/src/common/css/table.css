@@ -1,4 +1,21 @@
-.table {
+
+.table-search-container {
+    display: block;
+    margin-top: 20px;
+    margin-left: 75%;
+}
+
+.table-search-label {
+    color: var(--light-green)
+}
+
+.table-search {
+    margin-left: 20px;
+    display: inline-block;
+    border: None;
+    border-bottom: 1px solid;
+    outline: none;
+    font-size: 20px;
     font-family: var(--main-font-family);
 }
 
@@ -9,6 +26,17 @@
     text-align: left;
     width: 120px;
     padding-left: 10px;
+}
+
+.empty-state-message {
+    font-family: var(--main-font-family);
+    color: var(--red-text);
+}
+
+.table {
+    font-family: var(--main-font-family);
+    display: block;
+    margin-top: 40px;
 }
 
 .table-cell {
@@ -22,6 +50,12 @@
 .table-row:hover {
     background-color: #90ffda;
     cursor: pointer;
+}
+
+.pagination-functions-container {
+    display: block;
+    margin-left: 30%;
+    margin-top: 15px;
 }
 
 .pagination-button {
@@ -39,4 +73,9 @@
 
 .pagination-button:hover {
     color: var(--hover-green);;
+}
+
+.pagination-page-numbers {
+    font-family: var(--main-font-family);
+    font-size: 20px;
 }

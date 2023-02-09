@@ -6,7 +6,11 @@
     left: 0;
     top: 0;
     border-right: var(--dark-green) 1px solid;
-    padding-top: 100px;
+    padding-top: 80px;
+}
+
+.sidebar-rows {
+    padding-top: 20px;
 }
 
 .side-bar-row {
@@ -21,4 +25,12 @@
 
 .side-bar-row:hover {
     background-color: var(--hover-green);
+}
+
+.side-bar-logo {
+    text-align: center;
+}
+
+.side-bar-logo-image {
+    width: 150px;
 }

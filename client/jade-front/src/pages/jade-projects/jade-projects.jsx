@@ -36,7 +36,7 @@ export default function JadeProjectsList() {
     }
 
     const new_jade_project_button = <button
-        className='page-button'
+        className='page-button new-jade-project-button'
         onClick={() => onClickNewJadeProjectButton()}
     >
         New Project
@@ -47,21 +47,23 @@ export default function JadeProjectsList() {
             <SideBar />
             <TopBar />
             <div className="page-content">
-                <NewJadeProjectModal 
-                    showNewJadeProjectModal={showNewJadeProjectModal}
-                    onClickCancelNewJadeProjectModalButton={onClickCancelNewJadeProjectModalButton}
-                    refreshJadeProjectsTableFn={refreshJadeProjectsTableFn}
-                />
                 <div>
                     <h2 class="page-heading">Jade Projects</h2>
                 </div>
                 <div className='table-container'>
-                    {new_jade_project_button}
+                    <div className="new-jade-project-button-container">
+                        {new_jade_project_button}
+                    </div>
                     <JadeProjectsTable
                         jadeProjectsList={jadeProjectsList}
                     ></JadeProjectsTable>
                 </div>
             </div>
+            <NewJadeProjectModal 
+                showNewJadeProjectModal={showNewJadeProjectModal}
+                onClickCancelNewJadeProjectModalButton={onClickCancelNewJadeProjectModalButton}
+                refreshJadeProjectsTableFn={refreshJadeProjectsTableFn}
+            />
         </div>
     )
 }

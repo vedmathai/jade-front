@@ -31,11 +31,14 @@ export default function JadeJobsQueue() {
                 <div>
                     <h2 class="page-heading">Jobs Queue</h2>
                 </div>
-                <button
-                    className="refresh-queue-button page-button"
-                    onClick={() => onClickRefreshJobsQueue()}
-                > Refresh </button>
+
                 <div className='table-container'>
+                    <div className="refresh-queue-button-container">
+                        <button
+                            className="refresh-queue-button page-button"
+                            onClick={() => onClickRefreshJobsQueue()}
+                        > Refresh Queue</button>
+                    </div>
                     <QueueTable jobsQueue={jobsQueue}/>
                 </div>
             </div>

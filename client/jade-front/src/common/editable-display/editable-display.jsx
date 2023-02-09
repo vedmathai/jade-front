@@ -6,8 +6,9 @@ export default function EditableDisplay(props) {
         <span className="form-input-label">
             {props.textLabel}:
         </span>
-        <span className='form-input-element'>
+        <span>
             <input
+                className='form-input-element'
                 value={props.object[props.textKey]}
                 onChange={(e) => props.onChangeEditableDisplayFn(e, props.textKey)}
             />
@@ -18,7 +19,7 @@ export default function EditableDisplay(props) {
         <span className="form-input-label">
             {props.textLabel}:
         </span>
-        <span className='form-input-element'>
+        <span className='form-input-element-display'>
             {props.object[props.textKey]}
         </span>
     </span>

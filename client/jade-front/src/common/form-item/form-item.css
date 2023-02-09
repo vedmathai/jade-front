@@ -1,0 +1,16 @@
+
+.form-input-element {
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    border-bottom: 1px solid;
+    text-decoration: none;
+}
+
+.form-input-element:focus{
+    outline: none;
+}
+
+.form-input-label {
+    font-family: var(--main-font-family);
+    font-size: 20px;
+}
