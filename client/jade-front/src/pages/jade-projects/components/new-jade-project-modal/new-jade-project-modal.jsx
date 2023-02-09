@@ -39,12 +39,14 @@ export default function NewJadeProjectModal(props) {
         setJadeProject(tempJadeProject);
     }
     const submitNewJadeProjectFormButton = <button
+            className="page-button new-jade-project-modal-submit-button"
             onClick={() => onClickSubmitNewJadeProjectFormButton()}
         >
             Create
         </button>
 
-    const CancelNewJadeProjectModalButton = <button
+    const cancelNewJadeProjectModalButton = <button
+            className="page-button alert-button new-jade-project-modal-cancel-button"
             onClick={() => onClickCancelNewJadeProjectModalButton()}
         >
             Cancel
@@ -55,20 +57,25 @@ export default function NewJadeProjectModal(props) {
     return (
         <>
             <div className={"modal ".concat(display_modal)}>
-                <div>
-                    <h2 class="modal-heading">New Jade Project</h2>
+                <div className="modal-content">
+                    <div>
+                        <h2 class="modal-heading">New Jade Project</h2>
+                    </div>
+                    <div className='modal-row'>
+                        <FormInput
+                            formInputLabel='Project Name'
+                            formInputKey='name'
+                            onChangeFormInputFn={onChangeFormInputFn}
+                        />
+                    </div>
+                    <div className='modal-row'>
+                        {cancelNewJadeProjectModalButton}
+                        {submitNewJadeProjectFormButton}
+                    </div>
                 </div>
-                <div className='modal-row'>
-                    <FormInput
-                        formInputLabel='Project Name'
-                        formInputKey='name'
-                        onChangeFormInputFn={onChangeFormInputFn}
-                    />
-                </div>
-                <div className='modal-row'>
-                    {submitNewJadeProjectFormButton}
-                    {CancelNewJadeProjectModalButton}
-                </div>
+                <div className='modal-overlay' 
+                    onClick={() => onClickCancelNewJadeProjectModalButton()}
+                />
             </div>
         </>
     )

@@ -1,0 +1,29 @@
+.form-input {
+    margin-top: 30px;
+    display: block;
+}
+
+.form-input-label {
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    width: 300px;
+    display: inline-block;
+}
+
+.form-input-element {
+    display: inline-block;
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    margin-left: 30px;
+    border: none;
+    border-bottom: 2px solid var(--dark-green);
+    width: 150px;
+}
+
+.form-input-element-display {
+    display: inline-block;
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    margin-left: 30px;
+    width: 150px;
+}

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import jade_logo from '../../common/assets/jade-front-logo-white.png';
 
 import './side-bar.css'
 
@@ -38,7 +39,12 @@ export default function SideBar(props) {
         
     return (
         <div className="side-bar">
-            {side_bar_rows}
+            <div className="side-bar-logo">
+                <img className="side-bar-logo-image" src={jade_logo} />
+            </div>
+            <div className='sidebar-rows'>
+                {side_bar_rows}
+            </div>
         </div>
     )
 }

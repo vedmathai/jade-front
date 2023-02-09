@@ -15,7 +15,6 @@ export default function UploadData(props) {
   
     return(
         <div className="upload-data">
-            <div className="bulk-upload-properties-heading">Upload Data</div>
             <input
                 className="bulk-upload-file-select"
                 onChange={handleUploadDataFileReader}                

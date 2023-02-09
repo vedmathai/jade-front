@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+
 import './jade-projects-table.css'
 import '../../../../common/css/table.css';
 
@@ -61,7 +64,9 @@ function PaginationFunctions(props) {
                 onClick={() => props.onClickPreviousPageButton()}
             >&lt;- Previous
             </button>
-            Page {props.currentPage} / {props.totalPages}
+            <span className="pagination-page-numbers">
+                Page {props.currentPage} / {props.totalPages}
+            </span>
             <button
                 className="pagination-button"
                 onClick={() => props.onClickNextPageButton()}
@@ -72,9 +77,18 @@ function PaginationFunctions(props) {
 
 function SearchBar(props) {
     return (
-        <input
-            onChange={(e) => props.onChangeSearch(e.target.value)}
-        />
+        <span>
+            <span
+                className="table-search-label"
+            >
+                <FontAwesomeIcon icon={faFilter} />:
+            </span>
+            <input 
+                placeholder='Filter Jade Projects'
+                className="table-search"
+                onChange={(e) => props.onChangeSearch(e.target.value)}
+            />
+        </span>
     )
 }
 
@@ -124,24 +138,28 @@ export default function JadeProjectsTable(props) {
         rows = rows.map((row, rowi) => (
             <JadeProjectsTableRow row={row} rowi={rowi + pageStarti + 1} />
         ));
-        empty_state = page_rows.length > 0? '' : empty_state;
+        empty_state = page_rows.length > 0 ? '' : empty_state;
     }
     return (
         <>
             {empty_state}
-            <SearchBar
-                onChangeSearch={onChangeSearch}
-            />
+            <div className="table-search-container">
+                <SearchBar
+                    onChangeSearch={onChangeSearch}
+                />
+            </div>
             <table className='table'>
                 <JadeProjectsHeader/>
                 {rows}
             </table>
-            <PaginationFunctions
-                onClickNextPageButton={onClickNextPageButton}
-                onClickPreviousPageButton={onClickPreviousPageButton}
-                currentPage={current_page}
-                totalPages={total_pages}
-            />
+            <div className="pagination-functions-container">
+                <PaginationFunctions
+                    onClickNextPageButton={onClickNextPageButton}
+                    onClickPreviousPageButton={onClickPreviousPageButton}
+                    currentPage={current_page}
+                    totalPages={total_pages}
+                />
+            </div>
         </>
     )
 }

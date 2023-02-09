@@ -1,9 +1,7 @@
-.modal {
-    position: absolute;
-    top: 20%;
-    left: 40%;
+.new-jade-project-modal-cancel-button {
+    margin-left: 360px;
 }
 
-.undisplay-modal {
-    display: none;
+.new-jade-project-modal-submit-button {
+    margin-left: 40px;
 }

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+
 import './queue-table.css'
 import '../../../../common/css/table.css';
 
@@ -47,22 +50,35 @@ function PaginationFunctions(props) {
     return (
         <>
             <button
+                className="pagination-button"
                 onClick={() => props.onClickPreviousPageButton()}
-            >Previous
+            >&lt;-- Previous
             </button>
-            Page {props.currentPage} / {props.totalPages}
+            <span className="pagination-page-numbers">
+                Page {props.currentPage} / {props.totalPages}
+            </span>
             <button
+                className="pagination-button"
                 onClick={() => props.onClickNextPageButton()}
-            >Next</button>
+            >Next --&gt;</button>
         </>
     )
 }
 
 function SearchBar(props) {
     return (
-        <input
-            onChange={(e) => props.onChangeSearch(e.target.value)}
-        />
+        <span>
+            <span
+                className="table-search-label"
+            >
+                <FontAwesomeIcon icon={faFilter} />:
+            </span>
+            <input 
+                placeholder='Filter Jade Jobs'
+                className="table-search"
+                onChange={(e) => props.onChangeSearch(e.target.value)}
+            />
+        </span>
     )
 }
 
@@ -113,20 +129,24 @@ export default function QueueTable(props) {
         ));
     }
     return (
-        <div className="table">
-            <SearchBar
-                onChangeSearch={onChangeSearch}
-            />
-            <table>
+        <>
+            <div className="table-search-container">
+                <SearchBar
+                    onChangeSearch={onChangeSearch}
+                />
+            </div>
+            <table className='table'>
                 <QueueTableHeader/>
                 {rows}
             </table>
-            <PaginationFunctions
-                onClickNextPageButton={onClickNextPageButton}
-                onClickPreviousPageButton={onClickPreviousPageButton}
-                currentPage={current_page}
-                totalPages={total_pages}
-            />
-        </div>
+            <div className="pagination-functions-container">
+                <PaginationFunctions
+                    onClickNextPageButton={onClickNextPageButton}
+                    onClickPreviousPageButton={onClickPreviousPageButton}
+                    currentPage={current_page}
+                    totalPages={total_pages}
+                />
+            </div>
+        </>
     )
 }

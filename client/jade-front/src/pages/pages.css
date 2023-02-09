@@ -8,14 +8,13 @@
 .page-content {
     position: relative;
     left: 300px;
-    top: 100px;
+    top: 70px;
     width: fit-content;
 }
 
 .page-heading {
     font-family: var(--main-font-family);
-    font-size: 30px;
-
+    font-size: 36px;
 }
 
 .page-button {
@@ -28,7 +27,7 @@
     display: inline-block;
     font-family: var(--main-font-family);
     font-size: 20px;
-    padding: 15px 32px;
+    padding: 5px 8px;
     text-align: center;
     text-decoration: none;
 }
@@ -40,8 +39,55 @@
 
 .table-container {
     border: 1px solid #005338;
-    padding: 40px;
+    padding: 30px;
     border-radius: 20px;
     width: 1200px;
-    height: 580px;
+    height: 650px;
+}
+
+.page-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    padding: 20px;
+    display: inline-block;
+    margin-top: 40px;
+    margin-right: 40px;
+}
+
+.page-card-row {
+    padding-top: 20px;
+}
+
+.page-card-heading {
+    font-family: var(--main-font-family);
+    font-size: 28px;
+}
+
+.edit-toggle-container {
+    margin-left: 30px;
+}
+
+.edit-toggle {
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.edit-toggle-on {
+    color: var(--light-green);
+}
+
+.undisplay-modal {
+    display: none;
+}
+
+.alert-button {
+    background-color: var(--main-red);
+    border-color: var(--dark-red);
+    color: var(--red-text);
+}
+
+.alert-button:hover {
+    background-color: var(--dark-red);
+    color: var(--off-white);
 }

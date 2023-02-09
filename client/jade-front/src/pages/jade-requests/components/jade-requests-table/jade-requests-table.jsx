@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './jade-requests-table.css'
+import '../../../../common/css/table.css';
+
 
 function JadeRequestsTableCell(props){
     var item = props.item;
@@ -35,10 +37,10 @@ function JadeRequestsTableRow(props){
 function JadeRequestsHeader() {
     var headers = ['Sr. No.', 'Job Id', 'Name', 'Partition']
     headers = headers.map((header) => {
-        return <th>{header}</th>
+        return <th className="table-header">{header}</th>
     })
     return (
-        <tr>
+        <tr className='table-row jade-request-table-row'>
             {headers}
         </tr>
     )
@@ -49,13 +51,17 @@ function PaginationFunctions(props) {
     return (
         <>
             <button
+                className="pagination-button"
                 onClick={() => props.onClickPreviousPageButton()}
-            >Previous
+            > &lt;- Previous
             </button>
-            Page {props.currentPage} / {props.totalPages}
+            <span className="pagination-page-numbers">
+                Page {props.currentPage} / {props.totalPages}
+            </span>
             <button
+                className="pagination-button"
                 onClick={() => props.onClickNextPageButton()}
-            >Next</button>
+            >Next -&gt;</button>
         </>
     )
 }
@@ -77,6 +83,14 @@ export default function JadeRequestsTable(props) {
     var requests_list = props.jadeRequestsList;
     var rows = [];
     const page_size = 10;
+
+    var empty_state = <div
+        className="empty-state-message"
+    >
+        There are no requests to display. Click the 'New Request' button above to create a new request.
+    </div>
+
+    const table_display = empty_state;
 
     var onClickNextPageButton = () => {
         if (current_page !== total_pages) {
@@ -110,26 +124,34 @@ export default function JadeRequestsTable(props) {
         current_page = Math.ceil((pageStarti + 1) / page_size)
         total_pages = Math.ceil(page_rows.length / page_size)
         var rows = page_rows.slice(pageStarti, pageStarti + page_size);
-        console.log(rows);
         rows = rows.map((row, rowi) => (
                 <JadeRequestsTableRow row={row} rowi={rowi + pageStarti + 1} />
         ));
-    }
-    return (
-        <>
-            <SearchBar
-                onChangeSearch={onChangeSearch}
-            />
-            <table>
+        var table = <div>
+            <div className="table-search-container">
+                <SearchBar
+                    onChangeSearch={onChangeSearch}
+                />
+            </div>
+            <table className="table">
                 <JadeRequestsHeader/>
                 {rows}
             </table>
-            <PaginationFunctions
-                onClickNextPageButton={onClickNextPageButton}
-                onClickPreviousPageButton={onClickPreviousPageButton}
-                currentPage={current_page}
-                totalPages={total_pages}
-            />
+            <div className="pagination-functions-container">
+                <PaginationFunctions
+                    onClickNextPageButton={onClickNextPageButton}
+                    onClickPreviousPageButton={onClickPreviousPageButton}
+                    currentPage={current_page}
+                    totalPages={total_pages}
+                />
+            </div>
+        </div>
+        const table_display = page_rows.length > 0? table : empty_state;
+
+    }
+    return (
+        <>
+            {table_display}
         </>
     )
 }
