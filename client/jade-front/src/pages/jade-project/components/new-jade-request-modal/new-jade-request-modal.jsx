@@ -37,11 +37,11 @@ export default function NewJadeRequestModal(props) {
     }
 
     const onChangeFormInputFn = (e, key) => {
-        console.log(JSON.stringify(jadeRequest));
         var tempJadeRequest = {...jadeRequest};
         tempJadeRequest[key] = e.target.value;
         setJadeRequest(tempJadeRequest);
     }
+
     const submitNewJadeRequestFormButton = <button
             className="page-button new-jade-request-modal-submit-button"
             onClick={() => onClickSubmitNewJadeRequestFormButton()}

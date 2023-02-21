@@ -19,15 +19,22 @@ class CodeRunner(AbstractProcessor):
         self.save_jade_request(job_id, jade_request)
 
     def create_script(self, jade_request):
-        script = '#!/bin/bash\n'
-        script += '#SBATCH --nodes={}\n'.format(jade_request.nodes())
-        script += '#SBATCH --time={}\n'.format(jade_request.wallclock_time())
-        script += '#SBATCH --job-name={}\n'.format(jade_request.name())
-        script += '#SBATCH --gres=gpu:{}\n'.format(jade_request.number_gpus())
-        script += '#SBATCH --mail-type={}\n'.format(jade_request.mail_type())
-        script += '#SBATCH --mail-user={}\n'.format(jade_request.mail_user())
-        script += '#SBATCH --partition={}\n'.format(jade_request.partition())
-        script += self.code_invocation(jade_request)
+        script_lines = [
+            '#!/bin/bash\n',
+            '#SBATCH --nodes={}\n'.format(jade_request.nodes()),
+            '#SBATCH --time={}\n'.format(jade_request.wallclock_time()),
+            '#SBATCH --job-name={}\n'.format(jade_request.name()),
+            '#SBATCH --gres=gpu:{}\n'.format(jade_request.number_gpus()),
+            '#SBATCH --mail-type={}\n'.format(jade_request.mail_type()),
+            '#SBATCH --mail-user={}\n'.format(jade_request.mail_user()),
+            '#SBATCH --partition={}\n'.format(jade_request.partition()),
+            'PROJECT_ID={}'.format(jade_request.jade_project()),
+            'REQUEST_ID={}'.format(jade_request.id()),
+            self.code_invocation(jade_request),
+        ]
+        script = ''
+        for line in script_lines:
+            script += '{}\n'.format(line)
         return script
 
     def write_script_remote(self, jade_request):
@@ -66,3 +73,16 @@ class CodeRunner(AbstractProcessor):
         remote_run_script_folder = self.remote_zip_folder_path(project)
         remote_run_script_file = '{}/run_script.sh'.format(remote_run_script_folder)
         return remote_run_script_file
+
+    def remote_zip_file_path(self, project):
+        return os.path.join(
+            self.remote_zip_folder_path(project),
+            self._config.remote_projects_code_file_name(),
+        )
+
+    def remote_zip_folder_path(self, project):
+        return os.path.join(
+            self._config.remote_projects_folder_name(),
+            project.id(),
+            self._config.remote_projects_code_folder_name(),
+        )

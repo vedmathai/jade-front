@@ -9,7 +9,7 @@ export default function UploadData(props) {
       let reader = new FileReader()
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (e) => {
-        uploadDataAPI(e.target.result);
+        uploadDataAPI(props.jadeProject.id, e.target.result);
       }
     }
   

@@ -24,18 +24,3 @@ class AbstractProcessor:
 
     def setup(self):
         pass
-
-    def remote_zip_file_path(self, project):
-        return os.path.join(
-            self._config.remote_projects_folder_name(),
-            project.id(),
-            self._config.remote_projects_code_folder_name(),
-            self._config.remote_projects_code_file_name(),
-        )
-
-    def remote_zip_folder_path(self, project):
-        return os.path.join(
-            self._config.remote_projects_folder_name(),
-            project.id(),
-            self._config.remote_projects_code_folder_name(),
-        )

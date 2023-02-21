@@ -7,5 +7,7 @@
     "database_schema_file": "jade_front/database/schemas/jadeuidb.json",
     "remote_projects_folder_name": "jade_front",
     "remote_projects_code_folder_name": "code",
-    "remote_projects_code_file_name": "code.zip"
+    "remote_projects_code_file_name": "code.zip",
+    "remote_projects_data_folder_name": "data",
+    "remote_projects_data_file_name": "data.zip"
 }
