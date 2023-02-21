@@ -121,7 +121,9 @@ export default function JadeProject(props) {
                                     Upload Data
                                 </div>
                             </div>
-                            <UploadData />
+                            <UploadData
+                                jadeProject={jadeProject} 
+                            />
                         </span>
                     </div>
                     <div className="page-row">

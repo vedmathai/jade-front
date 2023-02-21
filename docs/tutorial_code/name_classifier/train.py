@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch import optim
 from jadelogs import Jadelogger
 
-from name_classifier.constants import LEARNING_RATE, N_ITERS, N_EPOCHS
+from name_classifier.constants import LEARNING_RATE, N_EPOCHS, BATCH_SIZE
 from name_classifier.model import RNN
 from name_classifier.datahandler import Datahandler
 
@@ -29,8 +29,8 @@ class Trainer:
 
     def train_epoch(self, epoch_i):
         current_loss = 0
-        all_losses = []
-        for iter_i in range(N_ITERS):
+        losses = []
+        for iter_i in range(self._train_data):
             datapoint = self._train_data[iter_i]
             category, line, category_tensor, line_tensor = self._datahandler.datapoint2tensor(datapoint)
             hidden = self._rnn.initHidden()
@@ -38,15 +38,27 @@ class Trainer:
             for i in range(line_tensor.size()[0]):
                 output, hidden = self._rnn(line_tensor[i], hidden)
             loss = criterion(output, category_tensor)
-            loss.backward()
-            self._optimizer.step()
-            output, loss.item()
-            current_loss += loss
+            predicted_category = self._datahandler.categoryFromOutput(output)
+            self._jade_logger.new_train_datapoint(category, predicted_category, {})
+            if len(losses) == 0:
+                losses = [losses]
+            else:
+                losses.append(loss)
+            if len(losses) == BATCH_SIZE:
+                loss = sum(losses)
+                loss.backward()
+                self._optimizer.step()
+                losses = []
+                batch = self._datahandler.new_train_batch()
+                self._jade_logger.new_batch()
 
 
     # Just return an output given a line
-    def evaluate_epoch(self, line_tensor):
+    def evaluate_epoch(self, epoch_i):
         hidden = self._rnn.initHidden()
+        for iter_i in range(self._evaluate_data):
+            datapoint = self._train_data[iter_i]
+            category, line, category_tensor, line_tensor = self._datahandler.datapoint2tensor(datapoint)
         category, line, category_tensor, line_tensor = self._datahandler.datapoint2tensor(datapoint)
         for i in range(line_tensor.size()[0]):
             output, hidden = self._rnn(line_tensor[i], hidden)

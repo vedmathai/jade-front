@@ -1,5 +1,6 @@
 from jade_front.database.database import Database
 from jade_front.server.engine.code_preprocessor import CodePreprocessor
+from jade_front.server.engine.data_preprocessor import DataPreprocessor
 from jade_front.server.engine.code_runner import CodeRunner
 from jade_front.server.engine.logs_retriever import LogsRetriever
 from jade_front.server.engine.pollster import Pollster
@@ -22,6 +23,7 @@ class Server:
         if cls._instance is None:
             Database.instantiate()
             CodePreprocessor.instantiate()
+            DataPreprocessor.instantiate()
             CodeRunner.instantiate()
             LogsRetriever.instantiate()
             Pollster.instantiate()
@@ -39,6 +41,7 @@ class Server:
 
     def setup(self):
         self._code_processor = CodePreprocessor.instance()
+        self._data_preprocessor = DataPreprocessor.instance()
         self._code_runner = CodeRunner.instance()
         self._logs_retriever = LogsRetriever.instance()
         self._pollster = Pollster.instance()
@@ -47,6 +50,7 @@ class Server:
         self._job_canceller = JobCanceller.instance()
         self._database = Database.instance()
         self._code_processor.setup()
+        self._data_preprocessor.setup()
         self._code_runner.setup()
         self._logs_retriever.setup()
         self._pollster.setup()
@@ -63,6 +67,10 @@ class Server:
     def upload_code(self, jade_project_id, code_zip):
         project = self.get_jade_project(jade_project_id)
         self._code_processor.upload_code(project, code_zip)
+
+    def upload_data(self, jade_project_id, data_zip):
+        project = self.get_jade_project(jade_project_id)
+        self._data_preprocessor.upload_data(project, data_zip)
 
     def create_request(self, jade_request):
         self._code_runner.run_code(jade_request)

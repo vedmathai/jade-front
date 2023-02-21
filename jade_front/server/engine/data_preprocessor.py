@@ -7,26 +7,26 @@ from jade_front.jade_api.apis.upload_file_api import UploadFileAPI
 from jade_front.jade_api.apis.create_folder_api import CreateFolderAPI
 from jade_front.jade_api.apis.unzip_api import UnzipFileAPI
 
-LOCAL_PROJECT_CODE_NAME = "code.zip"
+LOCAL_PROJECT_DATA_NAME = "data.zip"
 
-class CodePreprocessor(AbstractProcessor):
+class DataPreprocessor(AbstractProcessor):
     _instance = None
-    _name = 'Code Processor'
+    _name = 'Data Preprocessor'
 
-    def upload_code(self, project, code_zip):
+    def upload_data(self, project, data_zip):
         temp_folder = TemporaryDirectory()
-        local_filepath = self.store_local(temp_folder, code_zip)
+        local_filepath = self.store_local(temp_folder, data_zip)
         self.create_remote_folder_helper(project)
-        self.upload_code_helper(local_filepath, project)
+        self.upload_data_helper(local_filepath, project)
         self.unzip_remote(project)
 
-    def store_local(self, temp_folder, code_zip):
-        tempfile_path = os.path.join(temp_folder.name, LOCAL_PROJECT_CODE_NAME)
+    def store_local(self, temp_folder, data_zip):
+        tempfile_path = os.path.join(temp_folder.name, LOCAL_PROJECT_DATA_NAME)
         with open(tempfile_path, 'wb') as f:
-            f.write(code_zip) 
+            f.write(data_zip) 
         return tempfile_path
 
-    def upload_code_helper(self, local_filepath, project):
+    def upload_data_helper(self, local_filepath, project):
         upload_file_api = UploadFileAPI()
         remote_zip_file_path = self.remote_zip_file_path(project)
         upload_file_api.upload_file(local_filepath, remote_zip_file_path)
@@ -45,12 +45,12 @@ class CodePreprocessor(AbstractProcessor):
     def remote_zip_file_path(self, project):
         return os.path.join(
             self.remote_zip_folder_path(project),
-            self._config.remote_projects_code_file_name(),
+            self._config.remote_projects_data_file_name(),
         )
 
     def remote_zip_folder_path(self, project):
         return os.path.join(
             self._config.remote_projects_folder_name(),
             project.id(),
-            self._config.remote_projects_code_folder_name(),
+            self._config.remote_projects_data_folder_name(),
         )
