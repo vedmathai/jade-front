@@ -30,6 +30,7 @@ class CodeRunner(AbstractProcessor):
             '#SBATCH --partition={}\n'.format(jade_request.partition()),
             'PROJECT_ID={}'.format(jade_request.jade_project()),
             'REQUEST_ID={}'.format(jade_request.id()),
+            self.venv_invocation(jade_request),
             self.code_invocation(jade_request),
         ]
         script = ''
@@ -56,6 +57,15 @@ class CodeRunner(AbstractProcessor):
     def save_jade_request(self, job_id, jade_request):
         jade_request.set_job_id(job_id)
         self._database.write_jade_request(jade_request)
+
+    def venv_invocation(self, jade_request):
+        venv_location = os.path.join(
+            self._config.remote_projects_folder_name(),
+            jade_request.jade_project(),
+            'venv/bin/activate'
+        )
+        venv_invocation = "source {}".format(venv_location)
+        return venv_invocation
 
     def code_invocation(self, jade_request):
         project = self._database.read_jade_project(jade_request.jade_project())

@@ -1,6 +1,0 @@
-N_HIDDEN = 128
-N_EPOCHS = 10
-BATCH_SIZE = 30
-
-FOLDERPATH = "docs/tutorial_data/data"
-LEARNING_RATE = 0.005
