@@ -4,7 +4,9 @@ import string
 import torch
 import unicodedata
 
-from docs.tutorial_code.name_classifier.constants import FOLDERPATH
+from jadelogs import JadeLogger
+
+from name_classifier.constants import FOLDERPATH
 
 
 class Datahandler:
@@ -13,6 +15,10 @@ class Datahandler:
         self._all_categories = []
         self._all_letters = string.ascii_letters + " .,;'"
         self._n_letters = len(self._all_letters)
+        self._jade_logger = JadeLogger()
+
+    def load(self):
+        self.read_files()
 
     # Turn a Unicode string to plain ASCII, thanks to https://stackoverflow.com/a/518232/2809427
     def unicodeToAscii(self, s):
@@ -23,18 +29,9 @@ class Datahandler:
             and c in self._all_letters
         )
 
-    def filepaths_list(self):
-        filenames = os.path.listdir()
-        filepaths = []
-        for filename in filenames:
-            filepath = os.path.join(FOLDERPATH, filename)
-            filepaths.append(filepath)
-        return filepaths
-
-
-    # Read a file and split into lines
-    def read(self):
-        for filepath in self.filepaths_list():
+    def read_files(self):
+        filepaths = self._jade_logger.file_manager.list_data_dir(FOLDERPATH)
+        for filepath in filepaths:
             category = os.path.splitext(os.path.basename(filepath))[0]
             lines = open(filepath, encoding='utf-8').read().strip().split('\n')
             lines = [self.unicodeToAscii(line) for line in lines]
@@ -65,7 +62,7 @@ class Datahandler:
     def lineToTensor(self, line):
         tensor = torch.zeros(len(line), 1, self._n_letters)
         for li, letter in enumerate(line):
-            tensor[li][0][self._letterToIndex(letter)] = 1
+            tensor[li][0][self.letterToIndex(letter)] = 1
         return tensor
 
     def categoryFromOutput(self, output):
@@ -75,9 +72,9 @@ class Datahandler:
 
     def split_data(self):
         data = []
-        for categories, values in self._category_lines.items():
+        for categories, values in self.category_lines().items():
             for value in values:
-                data.append((categories, values))
+                data.append((categories, value))
         train_end = int(0.8 * len(data))
         test_start = int(0.9 * len(data))
         train_data = data[:train_end]
@@ -91,5 +88,5 @@ class Datahandler:
     def datapoint2tensor(self, datapoint):
         category, line = datapoint
         category_tensor = torch.tensor([self._all_categories.index(category)], dtype=torch.long)
-        line_tensor = self._lineToTensor(line)
+        line_tensor = self.lineToTensor(line)
         return category, line, category_tensor, line_tensor
