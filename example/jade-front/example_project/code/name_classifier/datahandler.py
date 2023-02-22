@@ -41,6 +41,9 @@ class Datahandler:
     def n_categories(self):
         return len(self._all_categories)
 
+    def n_letters(self):
+        return self._n_letters
+
     def category_lines(self):
         return self._category_lines
 
@@ -68,7 +71,7 @@ class Datahandler:
     def categoryFromOutput(self, output):
         top_n, top_i = output.topk(1)
         category_i = top_i[0].item()
-        return self._all_categories[category_i], category_i
+        return self._all_categories[category_i]
 
     def split_data(self):
         data = []
