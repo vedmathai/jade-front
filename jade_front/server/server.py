@@ -74,6 +74,7 @@ class Server:
 
     def create_request(self, jade_request):
         self._code_runner.run_code(jade_request)
+        self._database.write_jade_request(jade_request)
 
     def get_jade_requests_list(self):
         return self._database.read_jade_requests()

@@ -28,8 +28,6 @@ class CodeRunner(AbstractProcessor):
             '#SBATCH --mail-type={}\n'.format(jade_request.mail_type()),
             '#SBATCH --mail-user={}\n'.format(jade_request.mail_user()),
             '#SBATCH --partition={}\n'.format(jade_request.partition()),
-            'PROJECT_ID={}'.format(jade_request.jade_project()),
-            'REQUEST_ID={}'.format(jade_request.id()),
             self.venv_invocation(jade_request),
             self.code_invocation(jade_request),
         ]
@@ -71,11 +69,19 @@ class CodeRunner(AbstractProcessor):
         project = self._database.read_jade_project(jade_request.jade_project())
         folder_path = self.remote_zip_folder_path(project)
         code_invocation = jade_request.code_invocation()
+        project_id_env_assignment = 'PROJECT_ID={}'.format(jade_request.jade_project())
+        request_id_env_assignment = 'REQUEST_ID={}'.format(jade_request.id())
         code_invocation = re.sub(
-            'REMOTE_FOLDER_PATH',
+            'REMOTE_CODE_FOLDER_PATH',
             folder_path,
             code_invocation
         )
+        code_invocation = [
+            project_id_env_assignment,
+            request_id_env_assignment,
+            code_invocation
+        ]
+        code_invocation = ' '.join(code_invocation)
         return code_invocation
 
     def remote_run_script_file(self, jade_request):
