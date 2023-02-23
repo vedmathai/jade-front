@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import './jade-requests-table.css'
 import '../../../../common/css/table.css';
+
 
 
 function JadeRequestsTableCell(props){
@@ -16,8 +20,8 @@ function JadeRequestsTableCell(props){
 
 function JadeRequestsTableRow(props){
     const row = props.row;
-    console.log(row);
     const rowi = props.rowi;
+    const navigate = useNavigate();
     const keys = ['job_id', 'name', 'partition']
     const vals = keys.map((key) => {
         return row[key]
@@ -26,8 +30,13 @@ function JadeRequestsTableRow(props){
     const row_div = row_vals.map((row_val, row_val_i) => (
         <JadeRequestsTableCell item={row_val}/>
     ))
+    const onClickJadeRequestsTableRow = (id) => {
+        navigate("/jade-request?jade-request-id=" + id)
+    }
     return (
-        <tr>
+        <tr className="table-row jade-requests-table-row"
+            onClick={() => onClickJadeRequestsTableRow(row['id'])}
+        >
             {row_div}
         </tr>
     )
@@ -68,9 +77,18 @@ function PaginationFunctions(props) {
 
 function SearchBar(props) {
     return (
-        <input
-            onChange={(e) => props.onChangeSearch(e.target.value)}
-        />
+        <span>
+            <span
+                className="table-search-label"
+            >
+                <FontAwesomeIcon icon={faFilter} />:
+            </span>
+            <input 
+                placeholder='Filter Jade Requests'
+                className="table-search"
+                onChange={(e) => props.onChangeSearch(e.target.value)}
+            />
+        </span>
     )
 }
 
@@ -127,7 +145,7 @@ export default function JadeRequestsTable(props) {
                 <JadeRequestsTableRow row={row} rowi={rowi + pageStarti + 1} />
         ));
         var table = <div>
-            <div className="table-search-container">
+            <div className="table-search-container jade-requests-table-search-container">
                 <SearchBar
                     onChangeSearch={onChangeSearch}
                 />
@@ -136,7 +154,7 @@ export default function JadeRequestsTable(props) {
                 <JadeRequestsHeader/>
                 {rows}
             </table>
-            <div className="pagination-functions-container">
+            <div className="pagination-functions-container jade-requests-pagination-functions-container">
                 <PaginationFunctions
                     onClickNextPageButton={onClickNextPageButton}
                     onClickPreviousPageButton={onClickPreviousPageButton}

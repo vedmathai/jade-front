@@ -83,74 +83,78 @@ export default function JadeProject(props) {
                         <h2 class="page-heading">Jade Project</h2>
                     </div>
                     <div className="page-row">
-                        <div className="page-card">
-                            <div className="page-class-heading-row">
-                                <span className="page-card-heading">
-                                    Project Details
-                                </span>
-                                <span className="edit-toggle-container">
-                                    <span
-                                        className={"edit-toggle " + edit_toggle_class}
-                                        onClick={() => onClickEditProjectButton()}
-                                    ><FontAwesomeIcon icon={faEdit} />
-                                    </span>
-                                </span>
-                            </div>
-                            <EditableDisplay
-                                textLabel='Project Name'
-                                textKey='name'
-                                object={jadeProject}
-                                onChangeEditableDisplayFn={onChangeEditableDisplayFn}
-                                editingMode={editingMode}
-                            />
-                            <div>
-                                <button
-                                    className="page-button alert-button delete-project-button"
-                                >
-                                    Delete this project
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="page-row">
-                        <span className="page-card">
-                            <div className="page-card-heading-row">
-                                <div className="page-card-heading">
-                                    Upload Code
+                        <span className="page-column jade-requests-table-page-column">
+                            <span className="page-card">
+                                <div className="page-card-row">
+                                    <div className="page-card-heading">
+                                        Jade Requests
+                                    </div>
                                 </div>
-                            </div>
-                            <UploadCode 
-                                jadeProject={jadeProject}
-                            />
+                                <div className="page-card-row">
+                                    <button
+                                        className="page-button new-request-button"
+                                        onClick={() => onClickNewJadeRequestButton()}
+                                    >New Request</button>
+                                </div>
+                                <div className="jade-requests-table-container">
+                                    <JadeRequestsTable 
+                                        jadeRequestsList={jadeRequestsList}
+                                    />
+                                </div>
+                            </span>
                         </span>
-                        <span className="page-card">
-                            <div className="page-card-heading-row">
-                                <div className="page-card-heading">
-                                    Upload Data
+                        <span className="page-column">
+                            <div className="page-row">
+                                <div className="page-card">
+                                    <div className="page-class-heading-row">
+                                        <span className="page-card-heading">
+                                            Project Details
+                                        </span>
+                                        <span className="edit-toggle-container">
+                                            <span
+                                                className={"edit-toggle " + edit_toggle_class}
+                                                onClick={() => onClickEditProjectButton()}
+                                            ><FontAwesomeIcon icon={faEdit} />
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <EditableDisplay
+                                        textLabel='Project Name'
+                                        textKey='name'
+                                        object={jadeProject}
+                                        onChangeEditableDisplayFn={onChangeEditableDisplayFn}
+                                        editingMode={editingMode}
+                                    />
+                                    <div>
+                                        <button
+                                            className="page-button alert-button delete-project-button"
+                                        >
+                                            Delete this project
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <UploadData
-                                jadeProject={jadeProject} 
-                            />
-                        </span>
-                    </div>
-                    <div className="page-row">
-                        <span className="page-card">
-                            <div className="page-card-row">
-                                <div className="page-card-heading">
-                                    Jade Requests
-                                </div>
-                            </div>
-                            <div className="page-card-row">
-                                <button
-                                    className="page-button new-request-button"
-                                    onClick={() => onClickNewJadeRequestButton()}
-                                >New Request</button>
-                            </div>
-                            <div className="jade-requests-table-container">
-                                <JadeRequestsTable 
-                                    jadeRequestsList={jadeRequestsList}
-                                />
+                            <div className="page-row">
+                                <span className="page-card">
+                                    <div className="page-card-heading-row">
+                                        <div className="page-card-heading">
+                                            Upload Code
+                                        </div>
+                                    </div>
+                                    <UploadCode 
+                                        jadeProject={jadeProject}
+                                    />
+                                </span>
+                                <span className="page-card">
+                                    <div className="page-card-heading-row">
+                                        <div className="page-card-heading">
+                                            Upload Data
+                                        </div>
+                                    </div>
+                                    <UploadData
+                                        jadeProject={jadeProject} 
+                                    />
+                                </span>
                             </div>
                         </span>
                     </div>

@@ -64,6 +64,11 @@
     font-size: 28px;
 }
 
+.page-column {
+    display: inline-block;
+    vertical-align: top;
+}
+
 .edit-toggle-container {
     margin-left: 30px;
 }

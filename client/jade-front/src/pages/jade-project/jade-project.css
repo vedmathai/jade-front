@@ -6,3 +6,7 @@
 .jade-requests-table-container {
     padding-top: 20px;
 }
+
+.jade-requests-table-cell {
+    width: 150px;
+}
