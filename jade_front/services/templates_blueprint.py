@@ -31,7 +31,7 @@ def get_template(run_id):
             'mail_type': 'ALL',
             'mail_user': "john.brown@gmail.com",
             'partition': "small",
-            'code_invocation': "PYTHONPATH=. python3 jade-front/8d6b250d-93a8-4924-9f3a-de35c076d320/code/name_classifier/train.py"
+            'code_invocation': "PYTHONPATH=REMOTE_CODE_FOLDER_PATH python REMOTE_CODE_FOLDER_PATH/name_classifier/main.py"
         }),
         HTTPStatus.OK
     )

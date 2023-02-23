@@ -6,7 +6,7 @@ import unicodedata
 
 from jadelogs import JadeLogger
 
-from name_classifier.constants import FOLDERPATH
+from name_classifier.constants import FOLDERPATH, SIZE_LIMITER
 
 
 class Datahandler:
@@ -78,11 +78,12 @@ class Datahandler:
         for categories, values in self.category_lines().items():
             for value in values:
                 data.append((categories, value))
-        train_end = int(0.8 * len(data))
-        test_start = int(0.9 * len(data))
+        train_end = int(0.8 * len(data) * SIZE_LIMITER)
+        test_start = int(0.9 * len(data) * SIZE_LIMITER)
+        test_end = int(len(data) * SIZE_LIMITER)
         train_data = data[:train_end]
         evaluate_data = data[train_end: test_start]
-        test_data = data[test_start: ]
+        test_data = data[test_start: test_end]
         random.shuffle(train_data)
         random.shuffle(test_data)
         random.shuffle(evaluate_data)

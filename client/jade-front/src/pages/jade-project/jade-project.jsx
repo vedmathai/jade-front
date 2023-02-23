@@ -10,6 +10,7 @@ import EditableDisplay from '../../common/editable-display/editable-display';
 import NewJadeRequestModal from './components/new-jade-request-modal/new-jade-request-modal';
 import getJadeProjectAPI from '../../apis/jade-projects/getJadeProjectAPI';
 import putJadeProjectAPI from '../../apis/jade-projects/putJadeProjectAPI';
+import getJadeRequestsListAPI from '../../apis/jade-requests/getJadeRequestsListAPI';
 import './jade-project.css'
 import TopBar from '../../common/top-bar/top-bar';
 import SideBar from '../../common/side-bar/side-bar';
@@ -20,9 +21,15 @@ export default function JadeProject(props) {
     var [jadeProject, setJadeProject] = useState({});
     var [showNewJadeRequestModal, setShowNewJadeRequestModal] = useState(false);
     var [editingMode, setEditingMode] = useState(false);
+    var [jadeRequestsList, setJadeRequestsList] = useState([]);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const getJadeRequestsFn = async () => {
+        var jadeRequestsList = await getJadeRequestsListAPI();
+        console.log(JSON.stringify(jadeRequestsList));
+        setJadeRequestsList(jadeRequestsList);
+    }
 
     const getJadeProjectFn = async (project_id) => {
         const jadeProject = await getJadeProjectAPI(project_id);
@@ -34,8 +41,9 @@ export default function JadeProject(props) {
     }
 
     useEffect(() => {
-        const jade_project_id = searchParams.get("jade-project-id")
+        const jade_project_id = searchParams.get("jade-project-id");
         getJadeProjectFn(jade_project_id);
+        getJadeRequestsFn();
     }, []);
 
     const onChangeEditableDisplayFn = async (e, key) => {
@@ -141,7 +149,7 @@ export default function JadeProject(props) {
                             </div>
                             <div className="jade-requests-table-container">
                                 <JadeRequestsTable 
-                                    jadeProjectId={JadeProject.id}
+                                    jadeRequestsList={jadeRequestsList}
                                 />
                             </div>
                         </span>

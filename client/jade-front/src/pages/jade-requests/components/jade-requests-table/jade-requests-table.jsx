@@ -90,7 +90,7 @@ export default function JadeRequestsTable(props) {
         There are no requests to display. Click the 'New Request' button above to create a new request.
     </div>
 
-    const table_display = empty_state;
+    var table_display = empty_state;
 
     var onClickNextPageButton = () => {
         if (current_page !== total_pages) {
@@ -110,7 +110,6 @@ export default function JadeRequestsTable(props) {
     }
 
     if (requests_list) {
-
         var page_rows = requests_list.filter((row_item) => {
             if (searchTerm.length == 0) { return true }
             let values = Object.values(row_item);
@@ -146,7 +145,7 @@ export default function JadeRequestsTable(props) {
                 />
             </div>
         </div>
-        const table_display = page_rows.length > 0? table : empty_state;
+        table_display = page_rows.length > 0? table : empty_state;
 
     }
     return (

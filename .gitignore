@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 JadeDatabase
-example/jade-front/example_project/data
-example/jade-front/example_project/venv
-example/jade-front/example_project/code/name_classifier.zip
-example/jade-front/example_project/logs
+example/jade_front/example_project/data
+example/jade_front/example_project/venv
+example/jade_front/example_project/code/name_classifier.zip
+example/jade_front/example_project/logs
