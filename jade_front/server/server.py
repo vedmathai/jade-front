@@ -4,7 +4,7 @@ from jade_front.server.engine.data_preprocessor import DataPreprocessor
 from jade_front.server.engine.code_runner import CodeRunner
 from jade_front.server.engine.logs_retriever import LogsRetriever
 from jade_front.server.engine.pollster import Pollster
-from jade_front.server.engine.results_retriever import ResultsRetriever
+from jade_front.server.engine.request_status_creator import RequestStatusCreator
 from jade_front.server.engine.jobs_lister import JobsLister
 from jade_front.server.engine.job_canceller import JobCanceller
 from jade_front.datamodel.jade_project.jade_project import JadeProject
@@ -27,7 +27,7 @@ class Server:
             CodeRunner.instantiate()
             LogsRetriever.instantiate()
             Pollster.instantiate()
-            ResultsRetriever.instantiate()
+            RequestStatusCreator.instantiate()
             JobsLister.instantiate()
             JobCanceller.instantiate()
             cls._instance = Server()
@@ -45,7 +45,7 @@ class Server:
         self._code_runner = CodeRunner.instance()
         self._logs_retriever = LogsRetriever.instance()
         self._pollster = Pollster.instance()
-        self._results_retriever = ResultsRetriever.instance()
+        self._request_status_creator = RequestStatusCreator.instance()
         self._jobs_lister = JobsLister.instance()
         self._job_canceller = JobCanceller.instance()
         self._database = Database.instance()
@@ -54,7 +54,7 @@ class Server:
         self._code_runner.setup()
         self._logs_retriever.setup()
         self._pollster.setup()
-        self._results_retriever.setup()
+        self._request_status_creator.setup()
         self._jobs_lister.setup()
         self._jobs_lister.setup()
         self._job_canceller.setup()
@@ -114,3 +114,8 @@ class Server:
         jade_request = self.get_jade_request(jade_request_id)
         logs = self._logs_retriever.retrieve_logs(jade_project, jade_request)
         return logs
+
+    def get_jade_request_status(self, jade_project_id, jade_request_id):
+        logs = self.get_jade_logs_metadata(jade_project_id, jade_request_id)
+        request_status = self._request_status_creator.create(logs)
+        return request_status

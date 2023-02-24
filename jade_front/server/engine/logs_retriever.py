@@ -24,15 +24,7 @@ class LogsRetriever(AbstractProcessor):
         local_log_filepath = os.path.join(temp_folder.name, 'log.json')
         with open(local_log_filepath, 'rt') as f:
             jadelogs = JadeLogger().from_snapshot(json.load(f))
-        losses = []
-        for epoch in jadelogs.experiments()[0].epochs():
-            for batch in epoch.test_batches()[0:1]:
-                window = []
-                for datapoint in batch.datapoints():
-                    window.append(datapoint.loss())
-                    losses.append(float(sum(window)) / len(window))
-        return {'losses': losses}
-            
+        return jadelogs
 
     def remote_log_file_path(self, project, request):
         return os.path.join(

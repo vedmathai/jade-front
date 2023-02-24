@@ -26,4 +26,5 @@
     font-size: 20px;
     margin-left: 30px;
     width: 150px;
+    overflow-x: scroll;
 }
