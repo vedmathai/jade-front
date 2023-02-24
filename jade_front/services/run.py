@@ -9,7 +9,7 @@ from flask_cors import CORS
 from jade_front.common.config import Config
 from jade_front.common.keyring import Keyring
 from jade_front.services.jobs_blueprint import jobs_blueprint
-from jade_front.services.results_blueprint import results_blueprint
+from jade_front.services.logs_blueprint import logs_blueprint
 from jade_front.services.requests_blueprint import requests_blueprint
 from jade_front.services.code_blueprint import code_blueprint
 from jade_front.services.data_blueprint import data_blueprint
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     # registering the blueprints
     jade_front_app.register_blueprint(jobs_blueprint, url_prefix='/v1')
-    jade_front_app.register_blueprint(results_blueprint, url_prefix='/v1')
+    jade_front_app.register_blueprint(logs_blueprint, url_prefix='/v1')
     jade_front_app.register_blueprint(requests_blueprint, url_prefix='/v1')
     jade_front_app.register_blueprint(code_blueprint, url_prefix='/v1')
     jade_front_app.register_blueprint(data_blueprint, url_prefix='/v1')

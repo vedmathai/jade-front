@@ -30,12 +30,12 @@ function JadeRequestsTableRow(props){
     const row_div = row_vals.map((row_val, row_val_i) => (
         <JadeRequestsTableCell item={row_val}/>
     ))
-    const onClickJadeRequestsTableRow = (id) => {
-        navigate("/jade-request?jade-request-id=" + id)
+    const onClickJadeRequestsTableRow = (jade_project_id, jade_request_id) => {
+        navigate("/jade-request?jade-project-id=" + jade_project_id + "&jade-request-id=" + jade_request_id)
     }
     return (
         <tr className="table-row jade-requests-table-row"
-            onClick={() => onClickJadeRequestsTableRow(row['id'])}
+            onClick={() => onClickJadeRequestsTableRow(props.jadeProjectId, row['id'])}
         >
             {row_div}
         </tr>
@@ -142,7 +142,7 @@ export default function JadeRequestsTable(props) {
         total_pages = Math.ceil(page_rows.length / page_size)
         var rows = page_rows.slice(pageStarti, pageStarti + page_size);
         rows = rows.map((row, rowi) => (
-                <JadeRequestsTableRow row={row} rowi={rowi + pageStarti + 1} />
+                <JadeRequestsTableRow row={row} rowi={rowi + pageStarti + 1} jadeProjectId={props.jadeProjectId} />
         ));
         var table = <div>
             <div className="table-search-container jade-requests-table-search-container">

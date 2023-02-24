@@ -108,3 +108,9 @@ class Server:
 
     def delete_jade_project(self, jade_project_id):
         return self._database.delete_jade_project(jade_project_id)
+
+    def get_jade_logs_metadata(self, jade_project_id, jade_request_id):
+        jade_project = self.get_jade_project(jade_project_id)
+        jade_request = self.get_jade_request(jade_request_id)
+        logs = self._logs_retriever.retrieve_logs(jade_project, jade_request)
+        return logs
