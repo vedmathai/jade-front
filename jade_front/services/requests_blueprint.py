@@ -7,8 +7,10 @@ from jade_front.datamodel.jade_request.jade_request import JadeRequest
 
 requests_blueprint = Blueprint('jade_requests', __name__)
 
-@requests_blueprint.route('/jade_requests', methods=['GET'])
-def get_requests_list():
+jade_projects_suffix = '/jade_projects/<jade_project_id>'
+
+@requests_blueprint.route(jade_projects_suffix + '/jade_requests', methods=['GET'])
+def get_requests_list(jade_project_id):
     server = Server.instance()
     jade_requests_list = server.get_jade_requests_list()
     return Response(
@@ -16,8 +18,8 @@ def get_requests_list():
         HTTPStatus.OK
     )
 
-@requests_blueprint.route('/jade_requests/<jade_request_id>', methods=['GET'])
-def get_request(jade_request_id):
+@requests_blueprint.route(jade_projects_suffix + '/jade_requests/<jade_request_id>', methods=['GET'])
+def get_request(jade_project_id, jade_request_id):
     server = Server.instance()
     jade_request = server.get_jade_request(jade_request_id)
     return Response(
@@ -25,8 +27,8 @@ def get_request(jade_request_id):
         HTTPStatus.OK
     )
 
-@requests_blueprint.route('/jade_requests', methods=['POST'])
-def create_request():
+@requests_blueprint.route(jade_projects_suffix + '/jade_requests', methods=['POST'])
+def create_request(jade_project_id):
     server = Server.instance()
     request_data = request.json
     jade_request = JadeRequest.from_dict(request_data)
@@ -36,8 +38,8 @@ def create_request():
         HTTPStatus.OK
     )
 
-@requests_blueprint.route('/jade_requests/<jade_request_id>', methods=['DELETE'])
-def delete_request(jade_request_id):
+@requests_blueprint.route(jade_projects_suffix + '/jade_requests/<jade_request_id>', methods=['DELETE'])
+def delete_request(jade_project_id, jade_request_id):
     server = Server.instance()
     server.delete_jade_request(jade_request_id)
     return Response(
@@ -45,8 +47,8 @@ def delete_request(jade_request_id):
         HTTPStatus.OK
     )
 
-@requests_blueprint.route('/jade_requests/<jade_request_id>/cancel', methods=['POST'])
-def cancel_jade_request(jade_request_id):
+@requests_blueprint.route(jade_projects_suffix + '/jade_requests/<jade_request_id>/cancel', methods=['POST'])
+def cancel_jade_request(jade_project_id, jade_request_id):
     server = Server.instance()
     server.cancel_job(jade_request_id)
     return Response(
@@ -54,8 +56,8 @@ def cancel_jade_request(jade_request_id):
         HTTPStatus.OK
     )
 
-@requests_blueprint.route('/jade_requests/new', methods=['GET'])
-def get_new_request():
+@requests_blueprint.route(jade_projects_suffix + '/jade_requests/new', methods=['GET'])
+def get_new_request(jade_project_id):
     server = Server.instance()
     jade_request = server.get_new_jade_request()
     return Response(

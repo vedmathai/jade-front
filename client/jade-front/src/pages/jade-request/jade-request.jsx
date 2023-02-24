@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import './jade-request.css'
 import TopBar from '../../common/top-bar/top-bar';
 import SideBar from '../../common/side-bar/side-bar';
+import getJadeRequestAPI from '../../apis/jade-requests/getJadeRequest';
 import getJadeMetaLogAPI from '../../apis/jade-logs/getJadeMetaLogAPI';
 
 
@@ -11,13 +12,16 @@ export default function JadeRequest(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [jadeMetaLog, setJadeMetaLog] = useState();
+    const [jadeRequest, setJadeRequest] = useState();
 
     const jadeProjectId = searchParams.get("jade-project-id");
     const jadeRequestId = searchParams.get("jade-request-id");
 
     const getJadeMetaLog = async () => {
         const jadeMetaLogResponse = await getJadeMetaLogAPI(jadeProjectId, jadeRequestId);
+        const jadeRequestResponse = await getJadeRequestAPI(jadeProjectId, jadeRequestId);
         setJadeMetaLog(jadeMetaLogResponse);
+        setJadeRequest(jadeRequestResponse);
     } 
 
     useEffect(() => {
@@ -36,6 +40,7 @@ export default function JadeRequest(props) {
                     <div className="page-row">
                         <div className="page-card extra">
                             {jadeRequestId}
+                            {JSON.stringify(jadeRequest)}
                             {JSON.stringify(jadeMetaLog)}
                         </div>
                     </div>

@@ -4,9 +4,9 @@ import axios from 'axios';
 const url = 'http://localhost:5000'
 
 
-export default async function postJadeRequestAPI(jade_project_id, jade_request) {
+export default async function getJadeRequestAPI(jade_project_id, jade_request_id) {
     const request = await axios
-        .post(url + "/v1/jade_projects/" + jade_project_id + "/jade_requests", jade_request, {
+        .get(url + "/v1/jade_projects/" + jade_project_id + "/jade_requests/" + jade_request_id, {
             headers: {
                 'Content-Type': 'application/json'
             }
