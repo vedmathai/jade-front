@@ -8,11 +8,11 @@ from jade_front.server.server import Server
 logs_blueprint = Blueprint('logs', __name__)
 
 
-@logs_blueprint.route('jade-projects/<jade_project_id>/jade-requests/<jade_request_id>/jade-log-metadata', methods=['GET'])
-def get_result(jade_project_id, jade_request_id):
+@logs_blueprint.route('jade-projects/<jade_project_id>/jade-requests/<jade_request_id>/jade-request-status', methods=['GET'])
+def get_jade_request_status(jade_project_id, jade_request_id):
     server = Server.instance()
-    result = server.get_jade_logs_metadata(jade_project_id, jade_request_id)
+    result = server.get_jade_request_status(jade_project_id, jade_request_id)
     return Response(
-        json.dumps(result),
+        json.dumps(result.to_dict()),
         HTTPStatus.OK
     )

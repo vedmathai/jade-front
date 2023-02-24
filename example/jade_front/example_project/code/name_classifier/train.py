@@ -32,6 +32,7 @@ class Trainer:
     def train(self):
         self._train_data, self._evaluate_data, self._test_data = self._datahandler.split_data()
         self._jade_logger.new_experiment()
+        self._jade_logger.set_total_epochs(N_EPOCHS)
         for epoch_i in range(N_EPOCHS):
             self._jade_logger.new_epoch()
             self.train_epoch(epoch_i)
