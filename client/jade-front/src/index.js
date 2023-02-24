@@ -7,6 +7,7 @@ import JadeJobsQueue from './pages/jobs-queue/jobs-queue';
 import JadeRequestsList from './pages/jade-requests/jade-requests';
 import JadeProjectsList from './pages/jade-projects/jade-projects';
 import JadeProject from './pages/jade-project/jade-project';
+import JadeRequest from './pages/jade-request/jade-request';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,6 +16,7 @@ root.render(
     <Routes>
       <Route path="/jade-jobs-queue" element={<JadeJobsQueue />} />
       <Route path="/jade-requests" element={<JadeRequestsList />} />
+      <Route path="/jade-request" element={<JadeRequest />} />
       <Route path="/jade-projects" element={<JadeProjectsList />} />
       <Route path="/jade-project" element={<JadeProject />} />
 

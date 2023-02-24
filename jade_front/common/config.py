@@ -62,6 +62,12 @@ class Config:
     def remote_projects_data_file_name(self) -> str:
         return self._remote_projects_data_file_name
 
+    def remote_projects_log_folder_name(self) -> str:
+        return self._remote_projects_log_folder_name
+
+    def remote_projects_log_file_name(self) -> str:
+        return self._remote_projects_log_file_name
+
     def set_keyring_file(self, keyring_file) -> str:
         self._keyring_file = keyring_file
 
@@ -89,6 +95,12 @@ class Config:
     def set_remote_projects_code_file_name(self, remote_projects_code_file_name) -> None:
         self._remote_projects_code_file_name = remote_projects_code_file_name
 
+    def set_remote_projects_log_folder_name(self, remote_projects_log_folder_name) -> None:
+        self._remote_projects_log_folder_name = remote_projects_log_folder_name
+
+    def set_remote_projects_log_file_name(self, remote_projects_log_file_name) -> None:
+        self._remote_projects_log_file_name = remote_projects_log_file_name
+
     def set_remote_projects_data_folder_name(self, remote_projects_data_folder_name) -> None:
         self._remote_projects_data_folder_name = remote_projects_data_folder_name
 
@@ -108,6 +120,8 @@ class Config:
         config.set_remote_projects_folder_name(val.get('remote_projects_folder_name'))
         config.set_remote_projects_code_folder_name(val.get('remote_projects_code_folder_name'))
         config.set_remote_projects_code_file_name(val.get('remote_projects_code_file_name'))
+        config.set_remote_projects_log_folder_name(val.get('remote_projects_log_folder_name'))
+        config.set_remote_projects_log_file_name(val.get('remote_projects_log_file_name'))
         config.set_remote_projects_data_folder_name(val.get('remote_projects_data_folder_name'))
         config.set_remote_projects_data_file_name(val.get('remote_projects_data_file_name'))
         return config
@@ -123,6 +137,8 @@ class Config:
             'remote_projects_folder_name': self.remote_projects_folder_name(),
             'remote_projects_code_folder_name': self.remote_projects_code_folder_name(),
             'remote_projects_code_file_name': self.remote_projects_code_file_name(),
+            'remote_projects_log_folder_name': self.remote_projects_log_folder_name(),
+            'remote_projects_log_file_name': self.remote_projects_log_file_name(),
             'remote_projects_data_folder_name': self.remote_projects_data_folder_name(),
             'remote_projects_data_file_name': self.remote_projects_data_file_name(),
         }

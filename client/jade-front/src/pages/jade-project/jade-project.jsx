@@ -98,6 +98,7 @@ export default function JadeProject(props) {
                                 </div>
                                 <div className="jade-requests-table-container">
                                     <JadeRequestsTable 
+                                        jadeProjectId={jadeProject.id}
                                         jadeRequestsList={jadeRequestsList}
                                     />
                                 </div>

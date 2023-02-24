@@ -10,7 +10,6 @@ class SubmitJobAPI(AbstractAPI):
 
     def run_api(self, remote_run_script_file):
         command = 'sbatch {}'.format(remote_run_script_file)
-        print(command)
         outputs = super().run_api(command)
         for output in outputs:
             job_id = output.strip('Submitted batch job ').strip()
