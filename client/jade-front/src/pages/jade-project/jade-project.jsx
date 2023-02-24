@@ -26,8 +26,7 @@ export default function JadeProject(props) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const getJadeRequestsFn = async () => {
-        var jadeRequestsList = await getJadeRequestsListAPI();
-        console.log(JSON.stringify(jadeRequestsList));
+        var jadeRequestsList = await getJadeRequestsListAPI(jadeProject.id);
         setJadeRequestsList(jadeRequestsList);
     }
 

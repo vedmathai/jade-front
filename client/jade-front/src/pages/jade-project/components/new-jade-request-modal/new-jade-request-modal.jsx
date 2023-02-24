@@ -9,17 +9,17 @@ import '../../../../common/css/modal.css';
 export default function NewJadeRequestModal(props) {
 
     var [jadeRequest, setJadeRequest] = useState({});
+    const jadeProject = props.jadeProject;
 
 
     const getNewJadeRequestFn = async () => {
-        const newJadeRequest = await getNewJadeRequestAPI(jadeRequest);
-        console.log(JSON.stringify(props.jadeProject));
+        const newJadeRequest = await getNewJadeRequestAPI(jadeProject.id, jadeRequest);
         newJadeRequest['jade_project'] = props.jadeProject['id'];
         setJadeRequest(newJadeRequest)
     }
 
     const postJadeRequestFn = async () => {
-        await postJadeRequestAPI(jadeRequest);
+        await postJadeRequestAPI(jadeProject.id, jadeRequest);
         onClickCancelNewJadeRequestModal();
     }
 
