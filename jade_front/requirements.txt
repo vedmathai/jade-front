@@ -5,3 +5,4 @@ paramiko == 2.12.0
 mysql-connector-python==8.0.28
 Flask-Cors==3.0.10
 jadelogs
+numpy

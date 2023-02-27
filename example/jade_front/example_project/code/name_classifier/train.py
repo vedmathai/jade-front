@@ -1,3 +1,4 @@
+import numpy as np
 import random
 import torch.nn as nn
 from torch import optim
@@ -47,7 +48,6 @@ class Trainer:
             datapoint = self._train_data[iter_i]
             category, line, category_tensor, line_tensor = self._datahandler.datapoint2tensor(datapoint)
             hidden = self._rnn.initHidden()
-            self._optimizer.zero_grad()
             for i in range(line_tensor.size()[0]):
                 output, hidden = self._rnn(line_tensor[i], hidden)
             loss = criterion(output, category_tensor)
@@ -61,6 +61,7 @@ class Trainer:
                 loss = sum(losses)
                 loss.backward()
                 self._optimizer.step()
+                self._optimizer.zero_grad()
                 losses = []
                 batch = self._jade_logger.new_train_batch()
 

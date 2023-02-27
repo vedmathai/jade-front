@@ -10,6 +10,8 @@
     left: 300px;
     top: 70px;
     width: fit-content;
+    height: 90vh;
+    overflow-y: scroll;
 }
 
 .page-heading {
