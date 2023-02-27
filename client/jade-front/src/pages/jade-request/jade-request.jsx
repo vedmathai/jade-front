@@ -8,6 +8,7 @@ import JadeRequestInfoCard from './components/jade-request-info-card/jade-reques
 import JadeRequestStatusCard from './components/jade-request-status-card/jade-request-status-card';
 import getJadeRequestStatusAPI from '../../apis/jade-logs/getJadeRequestStatusAPI';
 import getJadeRequestAPI from '../../apis/jade-requests/getJadeRequest';
+import LossPlotCard from './components/loss-plot-card/loss-plot-card';
 
 
 export default function JadeRequest(props) {
@@ -49,6 +50,9 @@ export default function JadeRequest(props) {
                         />
                         <JadeRequestStatusCard
                             jadeRequestStatus={jadeRequestStatus}
+                        />
+                        <LossPlotCard 
+                            lineData={jadeRequestStatus.losses}
                         />
                     </div>
                 </div>
