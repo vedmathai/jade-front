@@ -137,7 +137,6 @@ class Database:
             "jade_project_id": jade_project_id,
         }
         response = query.run_query(connection, table, key_dictionary)
-        print(jade_project_id)
         if len(response) == 1:
             project_json = response[0][1]
             request = JadeProject.from_dict(

@@ -6,6 +6,5 @@ class CreateTablesQuery(AbstractQuery):
 
     def run_query(self, connection, table_name, columns):
         self._query = self._query_template.format(table_name, columns)
-        print(self._query)
         response = super().run_query(connection)
         return response
