@@ -14,7 +14,7 @@ import LossPlotCard from './components/loss-plot-card/loss-plot-card';
 export default function JadeRequest(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [jadeRequestStatus, setJadeRequestStatus] = useState({});
+    const [jadeRequestStatus, setJadeRequestStatus] = useState();
     const [jadeRequest, setJadeRequest] = useState({});
 
     const jadeProjectId = searchParams.get("jade-project-id");
@@ -28,6 +28,23 @@ export default function JadeRequest(props) {
     const getJadeRequestResponse = async () => {
         const jadeRequestResponse = await getJadeRequestAPI(jadeProjectId, jadeRequestId);
         setJadeRequest(jadeRequestResponse);
+    }
+
+    var status_cards = ''
+
+    if (jadeRequestStatus) {
+        status_cards = <>
+            <div className="page-row">
+                <JadeRequestStatusCard
+                    jadeRequestStatus={jadeRequestStatus}
+                />
+            </div>
+            <div className="page-row">
+                <LossPlotCard 
+                    lineData={jadeRequestStatus.losses}
+                />
+            </div>
+        </>
     }
 
     useEffect(() => {
@@ -48,13 +65,8 @@ export default function JadeRequest(props) {
                         <JadeRequestInfoCard
                             jadeRequest={jadeRequest}
                         />
-                        <JadeRequestStatusCard
-                            jadeRequestStatus={jadeRequestStatus}
-                        />
-                        <LossPlotCard 
-                            lineData={jadeRequestStatus.losses}
-                        />
                     </div>
+                    {status_cards}
                 </div>
             </div>
         </>
