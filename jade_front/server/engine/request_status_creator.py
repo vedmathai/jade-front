@@ -85,13 +85,18 @@ class RequestStatusCreator(AbstractProcessor):
                     else:
                         recall_list += [0]
                 precision = 0
+
                 if len(precision_list) > 0:
                     precision = np.mean(precision_list)
                 recall = 0
                 if len(recall_list) > 0:
                     recall = np.mean(recall_list)
                 f1 = 0
-                if len(precision_list) == len(recall_list) == 0:
+                if len(predicted_label) == 0:
+                    precision = 1
+                if len(expected_label) == 0:
+                    recall = 1
+                if len(predicted_label) == len(expected_label) == 0:
                     f1 = 1
                 elif (precision + recall) != 0:
                     f1 = (2 * precision * recall) / (precision + recall)
@@ -99,10 +104,13 @@ class RequestStatusCreator(AbstractProcessor):
                 recalls += [recall]
                 f1s += [f1]
                 exact_matches += [1 if expected_label == predicted_label else 0]
+        precision = np.mean(precisions)
+        recall = np.mean(recalls)
+        f1 = np.mean(f1s)
         return {
-            'precision': self._fix_decimal(np.mean(precisions)),
-            'recall': self._fix_decimal(np.mean(recalls)),
-            'f1': self._fix_decimal(np.mean(f1s)),
+            'precision': self._fix_decimal(precision),
+            'recall': self._fix_decimal(recall),
+            'f1': self._fix_decimal(f1),
             'exact_match': self._fix_decimal(np.mean(exact_matches)),
         }
     
